@@ -1,11 +1,21 @@
+
+
 function saveToServer(event){
     event.preventDefault();
     const username = event.target.usernameinput.value; 
     const email = event.target.emailinput.value;
     const password = event.target.passwordinput.value;
 
-    alert("Save to server");
     console.log(username,email,password);
+    const obj = {username,email,password}
+    axios.post('http://localhost:4000/signupdetails',obj)
+    .then((response) => {
+        console.log(response)
+    })
+    .catch((err) => {
+        console.log(err)});
+        // document.body.innerHTML = document.body.innerHTML  +"<h1>something went wrong</h1>"
+
 }
 
 
