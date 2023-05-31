@@ -1,5 +1,3 @@
-
-
 function saveToServer(event){
     event.preventDefault();
     const username = event.target.usernameinput.value; 
@@ -14,7 +12,6 @@ function saveToServer(event){
     })
     .catch((err) => {
         console.log(err)});
-        // document.body.innerHTML = document.body.innerHTML  +"<h1>something went wrong</h1>"
 
 }
 
