@@ -35,7 +35,7 @@ app.post("/logindetails", async (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;
 
-    const data = await signup
+    const user= await signup
       .findOne({
         where: {
           email: email,
@@ -44,21 +44,20 @@ app.post("/logindetails", async (req, res, next) => {
       .then((user) => {
         if (user) {
           if (user.password === password) {
+            res.status(200).json({ logindetails: user });
             console.log("Password is correct");
           } else {
             console("Password is incorrect");
+            res.status(401).json({ error: "User not authorized" });
           }
         } else {
           console.log("User is does not exist");
+          res.status(404).json({ error: "User is not found" });
         }
-      })
-      .catch((err) => {
-        console.log("Error: " + err);
       });
-
-    res.status(200).json({ logindetails: data });
   } catch (err) {
     console.error(err);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
