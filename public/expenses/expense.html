@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Money Mentor</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="expense.css">
+    
+
+  </head>
+  <body>
+    <h1 class="text-center mt-4 mb-5">Welcome to MoneyMentor</h1>
+    <div class="container">
+      <form onsubmit="saveToServer(event)">
+        <div class="form-group">
+          <label for="expenseAmount">Expense Amount:</label>
+          <input
+            type="number"
+            class="form-control"
+            id="expenseAmount"
+            name="expenseAmount"
+            required
+          />
+        </div>
+        <br />
+        <div class="form-group">
+          <label for="checkDescription">Description:</label>
+          <input type="text" class="form-control" id="checkDescription" name="checkDescription" required
+          />
+        </div>
+        <br />
+        <div class="form-group">
+          <label for="category">Category:</label>
+          <select class="form-control" id="category" name="category" required>
+            <option value="">Select a category</option>
+            <option value="food">Food</option>
+            <option value="transportation">Transportation</option>
+            <option value="utilities">Utilities</option>
+          </select>
+        </div>
+        <br />
+        <div class="form-group">
+          <label for="image">Upload Image:</label>
+          <input
+            type="file"
+            class="form-control-file"
+            id="image"
+            name="image"
+          />
+        </div>
+        <br />
+        <div>
+          <button type="submit" class="btn btn-success">Add Expense</button>
+        </div>
+      </form>
+    </div>
+    <br />
+
+    <h2 class="text-center">Expenses List</h2>
+    <div class="table-container">
+    <table class="table">
+      <thead>
+        <tr class = "id">
+          <th>Amount</th>
+          <th>Category</th>
+          <th>Description</th>
+          <th>Delete Expense</th>
+        </tr>
+      </thead>
+      <tbody class ="tbody">
+        <tr>
+          <td>Row 1, Cell 1</td>
+          <td>Row 1, Cell 2</td>
+          <td>Row 1, Cell 3</td>
+          <td><button class="btn btn-danger">Delete</button></td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="expense.js"></script>
+  </body>
+</html>
