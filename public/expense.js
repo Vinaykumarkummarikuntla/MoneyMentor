@@ -1,3 +1,4 @@
+// sending expense details
 function saveToServer(event) {
   event.preventDefault();
   const expenseAmount = event.target.expenseAmount.value;
@@ -6,10 +7,12 @@ function saveToServer(event) {
   // const image = event.target.image.value;
   console.log(expenseAmount, checkDescription, category);
 
+  const token = localStorage.getItem('token')
+
   const obj = { expenseAmount, checkDescription, category };
 
   axios
-    .post("http://localhost:4000/expensedetails", obj)
+    .post("http://localhost:4000/expensedetails", obj,{headers :{"Authorization": token}})
     .then((response) => {
       console.log(response);
     })
@@ -18,10 +21,13 @@ function saveToServer(event) {
     });
 }
 
+// retreiveing the expense details
 window.addEventListener("DOMContentLoaded", () => {
+  const token = localStorage.getItem('token')
   axios
-    .get("http://localhost:4000/expensedetails")
+    .get("http://localhost:4000/expensedetails",{headers :{"Authorization": token}})
     .then((response) => {
+      
       const result = response.data.expensedetails;
 
       for (let i = 0; i < result.length; i++) {
@@ -34,6 +40,7 @@ window.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+// expense add to UI
 function showExpenseDetails(expense) {
   console.log("showExpenseDetails function called");
   console.log("Expense amount:", expense.expenseamount);
@@ -47,15 +54,18 @@ function showExpenseDetails(expense) {
   parentElement.innerHTML = parentElement.innerHTML + childHTML;
 }
 
+// delete expense in backend
 function deleteExpense(expenseId) {
+  const token = localStorage.getItem('token')
   console.log(expenseId);
-
+  // { data: { expenseId } } --> delete
   axios
-    .delete("http://localhost:4000/deleteexpense", { data: { expenseId } })
+    .delete("http://localhost:4000/deleteexpense/${expenseId}",{headers :{"Authorization": token}})
     .then((response) => {
       console.log(response);
 
-      // Remove the UI element
+      // remove UI element
+
       const expenseElement = document.getElementById(`expense-${expenseId}`);
       if (expenseElement) {
         expenseElement.remove();

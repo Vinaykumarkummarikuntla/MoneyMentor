@@ -3,7 +3,11 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
-const mime = require("mime");
+const userAuthentication = require("./middleware/auth");
+
+const expenseRouter = require("./routes/expense");
+
+
 
 const bcrypt = require("bcrypt");
 
@@ -15,7 +19,7 @@ const expense = require("./models/expensemodel");
 // controllers
 const loginController = require("./controllers/login");
 const signupController = require("./controllers/signup");
-const expenseController = require("./controllers/expense");
+
 
 
 const app = express();
@@ -26,26 +30,20 @@ app.use(bodyParser.json());
 // app.use(express.static(path.join(__dirname, "public")));
 
 
-// urls
-app.post("/signupdetails", signupController.signupdetails);
 
+// login
+app.post("/signupdetails", signupController.signupdetails);
+// signup
 app.post("/logindetails",loginController.logindetails);
 
-app.post("/expensedetails",expenseController.expense);
 
-app.get("/expensedetails",expenseController.getexpense);
-
-app.delete("/deleteexpense",expenseController.deleteexpense);
 
 // Serve static files from the "public" directory
 app.use(express.static(path.join(__dirname, "/public")));
 
 
+app.use(expenseRouter);
 
-
-// app.get("/", (req, res) => {
-//   res.sendFile(path.join(__dirname, "public", "index.html"));
-// });
 
 app.get("/public/expense.html", (req, res) => {
   res.sendFile(path.join(__dirname, "public","expense.html"));
@@ -57,6 +55,11 @@ app.get("/public/singup.html", (req, res) => {
 app.get("/public/expense.js", (req, res) => {
   res.sendFile(path.join(__dirname, "public","expense.js"));
 });
+
+signup.hasMany(expense);
+
+expense.belongsTo(signup);
+
 
 sequelize
   // .sync({force :true })

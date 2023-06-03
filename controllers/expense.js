@@ -11,6 +11,7 @@ exports.expense = async (req, res, next) => {
       expenseamount: expenseAmount,
       category: category,
       description: checkDescription,
+      signupId : req.user.id
     });
     console.log("the expense details are stored");
     res.status(200).json({ msg: "success" });
@@ -23,8 +24,9 @@ exports.expense = async (req, res, next) => {
 // get expense details
 exports.getexpense = async (req, res, next) => {
   try {
-    const expense = await Expense.findAll();
-
+    console.log("req.user id -------->",req.user.id)
+    const expense = await Expense.findAll({ where: { signupId: req.user.id}});
+    // const expense = await Expense.findAll();
     res.status(200).json({ expensedetails: expense });
     console.log("the expense details are getting");
   } catch (err) {
@@ -37,7 +39,8 @@ exports.getexpense = async (req, res, next) => {
 exports.deleteexpense = async (req, res, next) => {
   try {
     const expenseId = req.body.expenseId;
-    const expense = await Expense.findByPk(expenseId);
+    const expense = await Expense.findOne({ where: {signupId: req.user.id } });
+    // const expense = await Expense.findAll({ where: { signupId: req.user.id}});
     if (expense) {
       await expense.destroy();
       res.status(200).json({ msg: "Expense deleted successfully" });
