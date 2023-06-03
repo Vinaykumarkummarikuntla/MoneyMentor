@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../util/database');
+const Signup = require('../models/signupmodel')
 
 const expense = sequelize.define('expenses', {
     id: {
@@ -25,8 +26,13 @@ const expense = sequelize.define('expenses', {
     image: {
         type: Sequelize.STRING,
         allowNull: true, // Assuming the image is optional and can be empty
-      },
+      }
 
+   
+     
+      
  });
+
  
+
  module.exports = expense;
