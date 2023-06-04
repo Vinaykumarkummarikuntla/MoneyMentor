@@ -7,12 +7,14 @@ function saveToServer(event) {
   // const image = event.target.image.value;
   console.log(expenseAmount, checkDescription, category);
 
-  const token = localStorage.getItem('token')
+  const token = localStorage.getItem("token");
 
   const obj = { expenseAmount, checkDescription, category };
 
   axios
-    .post("http://localhost:4000/expensedetails", obj,{headers :{"Authorization": token}})
+    .post("http://localhost:4000/expensedetails", obj, {
+      headers: { Authorization: token },
+    })
     .then((response) => {
       console.log(response);
     })
@@ -23,11 +25,12 @@ function saveToServer(event) {
 
 // retreiveing the expense details
 window.addEventListener("DOMContentLoaded", () => {
-  const token = localStorage.getItem('token')
+  const token = localStorage.getItem("token");
   axios
-    .get("http://localhost:4000/expensedetails",{headers :{"Authorization": token}})
+    .get("http://localhost:4000/expensedetails", {
+      headers: { Authorization: token },
+    })
     .then((response) => {
-      
       const result = response.data.expensedetails;
 
       for (let i = 0; i < result.length; i++) {
@@ -56,11 +59,13 @@ function showExpenseDetails(expense) {
 
 // delete expense in backend
 function deleteExpense(expenseId) {
-  const token = localStorage.getItem('token')
+  const token = localStorage.getItem("token");
   console.log(expenseId);
   // { data: { expenseId } } --> delete
   axios
-    .delete("http://localhost:4000/deleteexpense/${expenseId}",{headers :{"Authorization": token}})
+    .delete("http://localhost:4000/deleteexpense/${expenseId}", {
+      headers: { Authorization: token },
+    })
     .then((response) => {
       console.log(response);
 
@@ -77,3 +82,32 @@ function deleteExpense(expenseId) {
         "<h2>Something went wrong item is not found in database</h2>";
     });
 }
+
+// Razorpay
+document.getElementById("rzp-button1").onclick = async function (e) {
+  alert("welcome to razorpay");
+  e.preventDefault();
+  const token = localStorage.getItem("token");
+  const response = await axios.get("http://localhost:4000/buypremiumship", {
+    headers: { Authorization: token },
+  });
+  console.log(response);
+
+  var options = {
+    key: response.data.key_id,
+    order_id: response.data.order.id,
+    handler: async function (response) {
+      await axios.post(
+        "http://localhost:4000/updatetransactionstatus",
+        {
+          order_id: options.order_id, // Correct the property name to "order_id"
+          payment_id: response.razorpay_payment_id,
+        },
+        { headers: { Authorization: token } }
+      );
+      alert("You are Premium User Now");
+    },
+  };
+  var rzp = new Razorpay(options);
+  rzp.open();
+};

@@ -3,9 +3,12 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
+require('dotenv').config();
+
 const userAuthentication = require("./middleware/auth");
 
 const expenseRouter = require("./routes/expense");
+const purchaseRouter = require("./routes/purchase");
 
 
 
@@ -15,6 +18,7 @@ const bcrypt = require("bcrypt");
 const sequelize = require("./util/database");
 const signup = require("./models/signupmodel");
 const expense = require("./models/expensemodel");
+const order = require("./models/ordermodel");
 
 // controllers
 const loginController = require("./controllers/login");
@@ -43,6 +47,7 @@ app.use(express.static(path.join(__dirname, "/public")));
 
 
 app.use(expenseRouter);
+app.use(purchaseRouter);
 
 
 app.get("/public/expense.html", (req, res) => {
@@ -57,8 +62,12 @@ app.get("/public/expense.js", (req, res) => {
 });
 
 signup.hasMany(expense);
-
 expense.belongsTo(signup);
+
+signup.hasMany(order);
+order.belongsTo(signup);
+
+
 
 
 sequelize

@@ -64,3 +64,9 @@ table.table {
   text-align: center;
   padding-bottom: 20px; 
 }
+
+.premium {
+  margin-top: 1%;
+  background-color: #ccc;
+
+}
