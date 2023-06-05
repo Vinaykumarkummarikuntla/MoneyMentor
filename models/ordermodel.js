@@ -15,6 +15,9 @@ const Order = sequelize.define("order", {
   orderid: Sequelize.STRING,
   
   status: Sequelize.STRING,
+  
+  ispremiumuser : Sequelize.BOOLEAN
+
 });
 
 module.exports = Order;

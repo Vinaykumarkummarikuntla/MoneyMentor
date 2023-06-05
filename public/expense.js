@@ -92,7 +92,7 @@ document.getElementById("rzp-button1").onclick = async function (e) {
     headers: { Authorization: token },
   });
   console.log(response);
-
+  // payment success
   var options = {
     key: response.data.key_id,
     order_id: response.data.order.id,
@@ -110,4 +110,13 @@ document.getElementById("rzp-button1").onclick = async function (e) {
   };
   var rzp = new Razorpay(options);
   rzp.open();
+
+  // payment failed
+  rzp.on('payment.failed', function(response){
+    console.log(response)
+    alert('Something went wrong');
+
+
+  })
+
 };
