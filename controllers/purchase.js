@@ -4,8 +4,9 @@ const Order = require("../models/ordermodel");
 exports.purchasePremium = async (req, res) => {
   try {
     
-    key = "",
-    secret_key = ""
+    // key = "",
+    // secret_key = ""
+    
 
     const rzp = new Razorpay({
       key_id: key,

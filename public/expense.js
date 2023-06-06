@@ -23,6 +23,7 @@ function saveToServer(event) {
     });
 }
 
+
 // retreiveing the expense details
 window.addEventListener("DOMContentLoaded", () => {
   const token = localStorage.getItem("token");
@@ -43,6 +44,7 @@ window.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+
 // expense add to UI
 function showExpenseDetails(expense) {
   console.log("showExpenseDetails function called");
@@ -57,6 +59,7 @@ function showExpenseDetails(expense) {
   parentElement.innerHTML = parentElement.innerHTML + childHTML;
 }
 
+
 // delete expense in backend
 function deleteExpense(expenseId) {
   const token = localStorage.getItem("token");
@@ -70,7 +73,6 @@ function deleteExpense(expenseId) {
       console.log(response);
 
       // remove UI element
-
       const expenseElement = document.getElementById(`expense-${expenseId}`);
       if (expenseElement) {
         expenseElement.remove();
@@ -82,6 +84,7 @@ function deleteExpense(expenseId) {
         "<h2>Something went wrong item is not found in database</h2>";
     });
 }
+
 
 // Razorpay
 document.getElementById("rzp-button1").onclick = async function (e) {
@@ -106,17 +109,21 @@ document.getElementById("rzp-button1").onclick = async function (e) {
         { headers: { Authorization: token } }
       );
       alert("You are Premium User Now");
+
+      const buypremium = document.getElementById("rzp-button1");
+      if (buypremium) {
+        buypremium.remove();
+      }
+
+      document.getElementById("message").innerHTML =
+        "<h4>You are a Premium User. Access All Features Now!</h4>";
     },
   };
   var rzp = new Razorpay(options);
   rzp.open();
-
   // payment failed
-  rzp.on('payment.failed', function(response){
-    console.log(response)
-    alert('Something went wrong');
-
-
-  })
-
+  rzp.on("payment.failed", function (response) {
+    console.log(response);
+    alert("Something went wrong");
+  });
 };

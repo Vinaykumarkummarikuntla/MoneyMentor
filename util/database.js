@@ -1,5 +1,6 @@
 const path = require('path');
 const fs = require("fs");
+
 const Sequelize = require("sequelize");
 const sequelize = new Sequelize("moneymentor", "vinay", "admin@9618", {
   dialect: "mysql",

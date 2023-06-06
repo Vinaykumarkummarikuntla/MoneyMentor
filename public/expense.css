@@ -70,3 +70,9 @@ table.table {
   background-color: #ccc;
 
 }
+.message{
+  color:darkslategrey;
+  text-align: center;
+  font-style: italic ;
+
+}

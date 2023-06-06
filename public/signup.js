@@ -4,7 +4,7 @@ function saveToServer(event) {
   const email = event.target.emailinput.value;
   const password = event.target.passwordinput.value;
 
-  console.log(username, email, password);
+  // console.log(username, email, password);
   const obj = { username, email, password };
   axios
     .post("http://localhost:4000/signupdetails", obj)
@@ -15,10 +15,7 @@ function saveToServer(event) {
     .catch((err) => {
       console.log(err);
     });
-
-   
-    
 }
 function redirectToLogin() {
-    window.location.href = "/index.html";
+  window.location.href = "/index.html";
 }

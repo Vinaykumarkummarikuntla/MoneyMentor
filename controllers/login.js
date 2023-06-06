@@ -3,9 +3,9 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 // generate a token
+// secret key generated from ours linux-terminal 
 function generateAccessToken(id,mail){
   return jwt.sign({userId:id,mail:mail },'OM43lvuJhjSc74Wk9KGdKq33QQu7uojMhAyprCt1Mo5JKqjFJ2IdrQDgEm8omL2vN4hDglXFwNroOezKVBK+gg==')
-
 }
 
 
@@ -22,8 +22,6 @@ exports.logindetails = async (req, res, next) => {
     if (user) {
       // console.log("Stored hashed password:", user.password);
       // console.log("Entered password:", password);
-    
-
       const isMatched = await bcrypt.compare(password, user.password);
 
       // console.log("Password comparison result:", isMatched);
