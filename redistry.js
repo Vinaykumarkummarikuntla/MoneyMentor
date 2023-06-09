@@ -10,7 +10,7 @@ client.on('connect', () => {
 
 client.connect();
 
-const Redis = (async () => {
+(async () => {
     try {
       // Set a value
       await client.set('mykey', 'Finally redis worked');
@@ -29,5 +29,3 @@ const Redis = (async () => {
      client.quit();
     }
   })();
-  
-  module.exports = Redis;

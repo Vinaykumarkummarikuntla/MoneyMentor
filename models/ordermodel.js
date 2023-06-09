@@ -10,7 +10,7 @@ const Order = sequelize.define("order", {
   },
   expenseamount: Sequelize.STRING,
 
-  payementid: Sequelize.STRING,
+  paymentid: Sequelize.STRING,
 
   orderid: Sequelize.STRING,
   

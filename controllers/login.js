@@ -4,8 +4,8 @@ const jwt = require("jsonwebtoken");
 
 // generate a token
 // secret key generated from ours linux-terminal 
-function generateAccessToken(id,mail){
-  return jwt.sign({userId:id,mail:mail },'OM43lvuJhjSc74Wk9KGdKq33QQu7uojMhAyprCt1Mo5JKqjFJ2IdrQDgEm8omL2vN4hDglXFwNroOezKVBK+gg==')
+function generateAccessToken(id,mail,isPremiumUser){
+  return jwt.sign({userId: id, mail: mail, isPremiumUser: isPremiumUser},'OM43lvuJhjSc74Wk9KGdKq33QQu7uojMhAyprCt1Mo5JKqjFJ2IdrQDgEm8omL2vN4hDglXFwNroOezKVBK+gg==')
 }
 
 
@@ -30,7 +30,7 @@ exports.logindetails = async (req, res, next) => {
         // res.redirect("/expense.html");
 
         // sending response back with token if user is authenticated
-        res.status(200).json({ msg: "User logineed successfully", token:generateAccessToken(user.id,email) });
+        res.status(200).json({ msg: "User logineed successfully", token:generateAccessToken(user.id,email,null) });
         console.log("Password is correct");
       } else {
         console.log("Password is incorrect");
