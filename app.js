@@ -3,12 +3,12 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
-require('dotenv').config();
+require('dotenv').config()
 
-const userAuthentication = require("./middleware/auth");
+const userAuthentication = require("./middleware/auth")
 
-const expenseRouter = require("./routes/expense");
-const purchaseRouter = require("./routes/purchase");
+const expenseRouter = require("./routes/expense")
+const purchaseRouter = require("./routes/purchase")
 
 
 

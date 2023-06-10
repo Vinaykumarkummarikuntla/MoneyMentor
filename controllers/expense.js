@@ -94,9 +94,9 @@ exports.deleteexpense = async (req, res, next) => {
       res.status(404).json({ msg: "Expense not found" });
     }
   } catch (err) {
-    console.log(err);
+    console.log(err)
     res
       .status(500)
-      .json({ error: "An error occurred while deleting the expense" });
+      .json({ error: "An error occurred while deleting the expense" })
   }
-};
+}

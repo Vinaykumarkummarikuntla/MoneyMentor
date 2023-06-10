@@ -1,6 +1,7 @@
-function checkOnServer(event){
-    event.preventDefault();
-    const email = event.target.email.value;
+function checkOnServer(event)
+{
+     event.preventDefault();
+    const email = event.target.email.value
     const password = event.target.password.value;
     console.log(email, password);
     // alert("Checking on server");

@@ -3,13 +3,19 @@
   <head>
     <title>Money Mentor</title>
     <link rel="icon" href="/public/logo-color.svg" type="image/svg+xml">
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-    />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="/expense.css">
+
+    <!-- leaderboard -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&display=swap" rel="stylesheet"/>
     
-    
+    <!-- leaderboard -->
 
   </head>
   <body>
@@ -19,6 +25,7 @@
     </div>
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <div id = "message" class="message"></div>
+    <div id = "leaderboard" class="leaderboard"></div>
 
     <div class="container">
       <form onsubmit="saveToServer(event)">
@@ -87,10 +94,69 @@
         </tbody>
     </table>
     </div>
+ <!-- leaderboard -->
+<!-- 
+ <div id="leaderboard-main">
+  <div id="leaderboard-header">
+    <h1>Ranking</h1>
+    <button class="leaderboard-share">
+      <i class="ph ph-share-network"></i>
+    </button>
+  </div>
+  <div id="leaderboard-table">
+    <div class="ribbon"></div>
+    <table>
+      <tr>
+        <td class="number">1</td>
+        <td class="name">Vinay Kumar</td>
+        <td class="points">
+          3000 <img class="gold-medal" src="https://github.com/malunaridev/Challenges-iCodeThis/blob/master/4-leaderboard/assets/gold-medal.png?raw=true" alt="gold medal"/>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="number">2</td>
+        <td class="name">Mohan</td>
+        <td class="points">2500</td>
+      </tr>
+      <tr>
+        <td class="number">3</td>
+        <td class="name">Zuber</td>
+        <td class="points">2000</td>
+      </tr>
+      <tr>
+        <td class="number">4</td>
+        <td class="name">Ranjith</td>
+        <td class="points">1500</td>
+      </tr>
+      <tr>
+        <td class="number">5</td>
+        <td class="name">Arun</td>
+        <td class="points">1000</td>
+      </tr>
+    </table>
+  </div>
+</div> -->
+
+
+<div id="leaderboard-main" style="display: none;">
+  <div id="leaderboard-header">
+    <h1>Ranking</h1>
+    <button class="leaderboard-share">
+      <i class="ph ph-share-network"></i>
+    </button>
+  </div>
+  <div id="leaderboard-table">
+    <div class="ribbon"></div>
+    <table id="dynamic-leaderboard"></table>
+  </div>
+</div>
+
+ <!-- leaderboard -->
+
+
+
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    
     <script src="expense.js"></script>
-    
-    
   </body>
 </html>
