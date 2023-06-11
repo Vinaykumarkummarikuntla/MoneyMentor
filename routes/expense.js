@@ -1,30 +1,25 @@
-const path = require("path");
+const path = require('path')
 
-const express = require('express');
+const express = require('express')
 
-const router = express.Router();
+const router = express.Router()
 
-const expenseController = require("../controllers/expense");
+const expenseController = require('../controllers/expense')
 
-const userAuthentication = require("../middleware/auth");
+const userAuthentication = require('../middleware/auth')
 
-const expense = require("../models/expensemodel");
-
+const expense = require('../models/expensemodel')
 
 // expense details storing
-router.post("/expensedetails",userAuthentication.authenticate,expenseController.expense);
-
-
+router.post('/expensedetails', userAuthentication.authenticate, expenseController.expense)
 
 // router.get("/expensedetails",expenseController.getexpense);
-router.get("/expensedetails",userAuthentication.authenticate ,expenseController.getexpense);
+router.get('/expensedetails', userAuthentication.authenticate, expenseController.getexpense)
 
 // expense details deleted
-router.delete("/deleteexpense/:expenseid",userAuthentication.authenticate,expenseController.deleteexpense);
+router.delete('/deleteexpense/:expenseid', userAuthentication.authenticate, expenseController.deleteexpense)
 
-module.exports = router;
+// show Leaderboard
+router.get('/premium/showleaderboard', userAuthentication.authenticate, expenseController.showleaderboard)
 
-
-
-
-
+module.exports = router
