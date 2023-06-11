@@ -60,7 +60,7 @@ signup.hasMany(order)
 order.belongsTo(signup)
 
 sequelize
-  // .sync({force :true })
+  // .sync({ force: true })
   .sync()
   .then((response) => {
     console.log(response)

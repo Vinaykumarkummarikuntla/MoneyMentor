@@ -36,15 +36,15 @@ window.addEventListener('DOMContentLoaded', () => {
       for (let i = 0; i < result.length; i++) {
         showExpenseDetails(result[i])
       }
-      //   console.log(result);
+      console.log(result)
 
-      const premiumToken = localStorage.getItem('Premiumtoken')
+      const premiumToken = localStorage.getItem('token')
       console.log(
         'at the time of getting expene details localStorage Premiumtoken getItem',
         premiumToken
       )
       const decodeToken = parseJwt(premiumToken)
-      console.log(decodeToken)
+      console.log('decoded Token', decodeToken)
       console.log(decodeToken.isPremiumUser)
 
       if (decodeToken.isPremiumUser) {
@@ -141,7 +141,7 @@ function showLeaderBoardUI (leaderboardresponse, Count) {
   childHTML = `<tr>
     <td> ${Count}</td>
     <td>${leaderboardresponse.username} </td>
-    <td>${leaderboardresponse.total_amount}</td> 
+    <td>${leaderboardresponse.totalAmount}</td> 
     </tr>`
   parentElement.innerHTML = parentElement.innerHTML + childHTML
 }
@@ -180,9 +180,9 @@ document.getElementById('rzp-button1').onclick = async function (e) {
       alert('You are Premium User Now')
       console.log('Token:', transactionResponse.data.token)
       // console.log("transaction return responsee",transactionResponse)
-      localStorage.setItem('Premiumtoken', transactionResponse.data.token)
+      localStorage.setItem('token', transactionResponse.data.token)
 
-      const premiumToken = localStorage.getItem('Premiumtoken')
+      const premiumToken = localStorage.getItem('token')
       console.log('localStorage Premiumtoken getItem', premiumToken)
 
       const decodeToken = parseJwt(premiumToken)

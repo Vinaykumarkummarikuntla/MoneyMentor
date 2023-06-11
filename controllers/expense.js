@@ -17,6 +17,15 @@ exports.expense = async (req, res, next) => {
       description: checkDescription,
       signupId: req.user.id
     })
+
+    const user = await User.findByPk(req.user.id)
+    if (user) {
+      const previosTotalAmount = user.totalAmount
+      // console.log("previoustotal amount ",previosTotalAmount)
+      const currentTotalAmount = Number(previosTotalAmount) + Number(expenseAmount)
+      // console.log("currentTotalAmount" ,currentTotalAmount)
+      await User.update({ totalAmount: currentTotalAmount }, { where: { id: req.user.id } })
+    }
     console.log('the expense details are stored')
     res.status(200).json({ msg: 'success' })
   } catch (err) {
