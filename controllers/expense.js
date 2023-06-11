@@ -56,22 +56,3 @@ exports.deleteexpense = async (req, res, next) => {
     res.status(500).json({ error: 'An error occurred while deleting the expense' })
   }
 }
-
-// leaderboard details
-exports.showleaderboard = async (req, res, next) => {
-  try {
-    const leaderboard = await Expense.findAll({
-      attributes: [
-        'signupId',
-        [Sequelize.fn('SUM', Sequelize.col('expenseamount')), 'total_amount']
-      ],
-      group: ['signupId'],
-      order: [[Sequelize.literal('total_amount'), 'DESC']]
-    })
-
-    res.status(200).json({ leaderboardresponse: leaderboard })
-  } catch (err) {
-    console.log(err)
-    res.status(500).json({ error: 'An error occurred while fetching leaderboard data' })
-  }
-}

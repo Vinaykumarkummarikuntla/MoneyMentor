@@ -9,6 +9,7 @@ const userAuthentication = require('./middleware/auth')
 
 const expenseRouter = require('./routes/expense')
 const purchaseRouter = require('./routes/purchase')
+const premiumFeatureRouter = require('./routes/premiumFeature')
 
 const bcrypt = require('bcrypt')
 
@@ -39,6 +40,7 @@ app.use(express.static(path.join(__dirname, '/public')))
 
 app.use(expenseRouter)
 app.use(purchaseRouter)
+app.use(premiumFeatureRouter)
 
 app.get('/public/expense.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'expense.html'))

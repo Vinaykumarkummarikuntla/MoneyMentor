@@ -95,7 +95,7 @@ function deleteExpense (expenseId) {
     })
 }
 
-// premium user message
+// showing premium user message
 function isPremiumUserMessage () {
   const buypremium = document.getElementById('rzp-button1')
 
@@ -107,8 +107,8 @@ function isPremiumUserMessage () {
     '<button onclick = "showLeaderBoard()" class ="btn btn-secondary btn-lg" > Show LeaderBoard </button>'
 }
 
-// show LeaderBoard
-let Count = 0
+// get show LeaderBoard
+let Count = 1
 async function showLeaderBoard () {
   const token = localStorage.getItem('token')
 
@@ -134,13 +134,13 @@ async function showLeaderBoard () {
     })
 }
 
-// leaderboard UI
+// leaderboard  add to UI
 function showLeaderBoardUI (leaderboardresponse, Count) {
   const parentElement = document.getElementById('dynamic-leaderboard')
 
   childHTML = `<tr>
     <td> ${Count}</td>
-    <td>${leaderboardresponse.signupId} </td>
+    <td>${leaderboardresponse.username} </td>
     <td>${leaderboardresponse.total_amount}</td> 
     </tr>`
   parentElement.innerHTML = parentElement.innerHTML + childHTML

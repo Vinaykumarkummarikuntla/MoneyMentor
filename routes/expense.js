@@ -19,7 +19,4 @@ router.get('/expensedetails', userAuthentication.authenticate, expenseController
 // expense details deleted
 router.delete('/deleteexpense/:expenseid', userAuthentication.authenticate, expenseController.deleteexpense)
 
-// show Leaderboard
-router.get('/premium/showleaderboard', userAuthentication.authenticate, expenseController.showleaderboard)
-
 module.exports = router
