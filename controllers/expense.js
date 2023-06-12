@@ -2,10 +2,13 @@
 const Expense = require('../models/expensemodel')
 const Sequelize = require('sequelize')
 const User = require('../models/signupmodel')
+const logger = require('../logger')
+const sequelize = require('../util/database')
 // const client = require('../util/redis')
 
 // storing expense details
 exports.expense = async (req, res, next) => {
+ let  t = sequelize.transaction()
   try {
     const expenseAmount = req.body.expenseAmount
     const checkDescription = req.body.checkDescription
@@ -17,18 +20,29 @@ exports.expense = async (req, res, next) => {
       description: checkDescription,
       signupId: req.user.id
     })
-
+    // try {
     const user = await User.findByPk(req.user.id)
     if (user) {
-      const previosTotalAmount = user.totalAmount
+      const previousTotalAmount = user.totalAmount
       // console.log("previoustotal amount ",previosTotalAmount)
-      const currentTotalAmount = Number(previosTotalAmount) + Number(expenseAmount)
+      const currentTotalAmount = Number(previousTotalAmount) + Number(expenseAmount)
       // console.log("currentTotalAmount" ,currentTotalAmount)
       await User.update({ totalAmount: currentTotalAmount }, { where: { id: req.user.id } })
+      // res.status(200).json({ expense })
     }
-    console.log('the expense details are stored')
-    res.status(200).json({ msg: 'success' })
+    // } catch (error) {
+    //   logger.error('An error occurred:', error)
+    //   res.status(500).json({ success: false, error })
+    // }
+    // 
+    await t.then(function(transaction) {
+       transaction.commit();
+      console.log('the expense details are stored');
+      res.status(200).json({ msg: 'success' });
+    });
   } catch (err) {
+    
+    await t.rollback()
     console.error(err)
     res.status(500).json({ msg: err })
   }
@@ -50,6 +64,7 @@ exports.getexpense = async (req, res, next) => {
 
 // delete expense details
 exports.deleteexpense = async (req, res, next) => {
+  
   try {
     const expenseId = req.body.expenseId
     const expense = await Expense.findOne({ where: { signupId: req.user.id } })
