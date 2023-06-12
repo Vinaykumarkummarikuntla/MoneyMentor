@@ -1,3 +1,4 @@
+
 function checkOnServer (event) {
   event.preventDefault()
   const email = event.target.email.value
@@ -17,50 +18,45 @@ function checkOnServer (event) {
     })
 }
 
-
 //  forgot password
 
-document.addEventListener('DOMContentLoaded', function() {
-  var forgotPasswordLink = document.getElementById('forgotPasswordLink');
+function showForgotPasswordForm () {
+  const forgotPasswordLink = document.getElementById('forgotPasswordLink')
+  ForgotPasswordForm()
+};
 
-  forgotPasswordLink.addEventListener('click', function(event) {
-    event.preventDefault();
-    showForgotPasswordForm();
-  });
+function ForgotPasswordForm () {
+  const form = document.createElement('form')
 
-  function showForgotPasswordForm() {
-    var form = document.createElement('form');
+  const emailInput = document.createElement('input')
+  emailInput.type = 'email'
+  emailInput.name = 'email'
+  emailInput.placeholder = 'Enter your email'
+  form.appendChild(emailInput)
 
-    var emailInput = document.createElement('input');
-    emailInput.type = 'email';
-    emailInput.name = 'email';
-    emailInput.placeholder = 'Enter your email';
-    form.appendChild(emailInput);
+  const submitButton = document.createElement('button')
+  submitButton.type = 'submit'
+  submitButton.textContent = 'Reset Password'
+  form.appendChild(submitButton)
 
-    var submitButton = document.createElement('button');
-    submitButton.type = 'submit';
-    submitButton.textContent = 'Reset Password';
-    form.appendChild(submitButton);
+  form.addEventListener('submit', function (event) {
+    event.preventDefault()
+    const email = emailInput.value
+    handleForgotPasswordFormSubmission(email)
+  })
 
-    form.addEventListener('submit', function(event) {
-      event.preventDefault();
-      var email = emailInput.value;
-      handleForgotPasswordFormSubmission(email);
-    });
+  document.body.appendChild(form)
+}
 
-    document.body.appendChild(form);
-  }
-
-  function handleForgotPasswordFormSubmission(email) {
-    // Make an AJAX request to the backend API using Axios
-    axios.post('http://localhost:4000/password/forgotpassword', { email: email })
-      .then((response) => {
-        console.log(response.data);
-        // Handle the response from the server
-      })
-      .catch((error) => {
-        console.error(error);
-        // Handle any errors that occur during the request
-      });
-  }
-});
+function handleForgotPasswordFormSubmission (email) {
+  // Make an AJAX request to the backend API using Axios
+  axios.post('http://localhost:4000/password/forgotpassword', { email })
+    .then((response) => {
+      console.log(response.data)
+      // Handle the response from the server
+    })
+    .catch((error) => {
+      console.error(error)
+      // Handle any errors that occur during the request
+    })
+}
