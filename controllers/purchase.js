@@ -1,3 +1,4 @@
+require('dotenv').config()
 const Razorpay = require('razorpay')
 const Order = require('../models/ordermodel')
 // const userController = require("../controllers/login");
@@ -11,14 +12,14 @@ function generateAccessToken (id, mail, isPremiumUser) {
 
 exports.purchasePremium = async (req, res) => {
   try {
-    // key = "",
-    // secret_key = ""
-    key = 'rzp_test_SKR2d6ojcvCQ9G',
-    secret_key = 'qS5QVk688OpL9qoQNKxncH2v'
+    // key = 'process.env.RAZORPAY_KEY_ID',
+    // secret_key = 'process.env.RAZORPAY_SECRET_KEY'
+    // key = 'rzp_test_SKR2d6ojcvCQ9G',
+    // secret_key = 'qS5QVk688OpL9qoQNKxncH2v'
 
     const rzp = new Razorpay({
-      key_id: key,
-      key_secret: secret_key
+      key_id: process.env.RAZORPAY_KEY_ID,
+      key_secret: process.env.RAZORPAY_SECRET_KEY
     })
 
     const amount = 500

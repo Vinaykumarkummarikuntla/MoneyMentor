@@ -11,7 +11,7 @@ exports.forgotpassword = async (req, res) => {
 
   const apiKey = defaultClient.authentications['api-key']
   apiKey.apiKey = process.env.FORGOT_API_KEY
-  // apiKey.apiKey = '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'; // Replace with your Sendinblue API key or use process.env to fetch from environment variables
+  
 
   const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi()
   const sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail()
