@@ -5,8 +5,10 @@ const cors = require('cors')
 
 require('dotenv').config()
 
+// middleware
 const userAuthentication = require('./middleware/auth')
 
+// routes
 const expenseRouter = require('./routes/expense')
 const purchaseRouter = require('./routes/purchase')
 const premiumFeatureRouter = require('./routes/premiumFeature')
@@ -19,6 +21,7 @@ const sequelize = require('./util/database')
 const signup = require('./models/signupmodel')
 const expense = require('./models/expensemodel')
 const order = require('./models/ordermodel')
+const forgotPassword = require('./models/forgotPasswordRequestsmodel')
 
 // controllers
 const loginController = require('./controllers/login')
@@ -60,6 +63,9 @@ expense.belongsTo(signup)
 
 signup.hasMany(order)
 order.belongsTo(signup)
+
+signup.hasMany(forgotPassword) // user has many forgot passwords requests
+forgotPassword.belongsTo(signup)
 
 sequelize
   // .sync({ force: true })

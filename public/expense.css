@@ -187,6 +187,14 @@ td {
 }
 
 .ribbon {
+  display: none;
+}
+
+#leaderboard-main .ribbon {
+  display: block;
+}
+
+.ribbon {
   width: 42rem;
   height: 5.5rem;
   top: -0.5rem;
@@ -263,6 +271,32 @@ td {
 .continue:active {
   border-bottom: 0;
 }
+
+/* report */
+
+/* all table text align center */
+#report-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+  text-align: center;
+}
+/* table set to middle */
+#report-main table {
+  margin: 0 auto;
+}
+
+#report-main table th {
+  text-align: center;
+}
+  /* table headers color */
+#report-main table thead th {
+  background-color:#c0506a;
+  text-align: center;
+}
+
 
 @media (max-width: 740px) {
     * {

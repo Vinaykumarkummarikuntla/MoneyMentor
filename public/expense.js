@@ -144,6 +144,8 @@ function showLeaderBoardUI (leaderboardresponse, Count) {
     <td>${leaderboardresponse.totalAmount}</td> 
     </tr>`
   parentElement.innerHTML = parentElement.innerHTML + childHTML
+
+  showYearReportUI()
 }
 
 // decoding token
@@ -201,4 +203,18 @@ document.getElementById('rzp-button1').onclick = async function (e) {
     console.log(response)
     alert('Something went wrong')
   })
+}
+
+function showYearReportUI () {
+  document.getElementById('report-main').style.display = 'block'
+  const parentElement = document.getElementById('dynamic-yearlyreport')
+
+  childHTML = `<tr>
+    <td> 2023-06-17 </td>
+    <td>Groceries</td>
+    <td>Rice</td> 
+    <td>100</td> 
+    <td>200</td> 
+    </tr>`
+  parentElement.innerHTML = parentElement.innerHTML + childHTML
 }

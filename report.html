@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Day to Day Expenses</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        
+        h1 {
+            margin-bottom: 20px;
+        }
+        
+        table {
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #f2f2f2;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        tr:hover {
+            background-color: #e6e6e6;
+        }
+        
+        .table-container {
+            margin-bottom: 40px;
+        }
+        
+        .notes-table {
+            margin-bottom: 0;
+        }
+        
+        .notes-table td {
+            border-top: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <h1>Day to Day Expenses</h1>
+
+    <div class="table-container">
+        <h2>Expense Details</h2>
+        <table id="expense-table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Category</th>
+                    <th>Income</th>
+                    <th>Expense</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Add rows dynamically using JavaScript or server-side rendering -->
+                <tr>
+                    <td>2023-06-01</td>
+                    <td>Groceries</td>
+                    <td>Food</td>
+                    <td>0</td>
+                    <td>50.00</td>
+                </tr>
+                <tr>
+                    <td>2023-06-02</td>
+                    <td>Movie Tickets</td>
+                    <td>Entertainment</td>
+                    <td>0</td>
+                    <td>25.00</td>
+                </tr>
+                <tr><td></td><td></td><td></td><td>50</td><td>75</td></tr>
+                <tr><td></td><td></td><td></td><td>10</td><td>100</td></tr>
+                <tr><td></td><td></td><td></td><td>60</td><td>175</td></tr>
+                <tr><td>Savings</td></tr>
+                <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+    </div>
+<h3>Yeary Report</h3>
+    <div class="table-container">
+        <h2>Monthly Summary</h2>
+        <table id="summary-table">
+            <thead>
+                <tr>
+                    <th>Month</th>
+                    <th>Income</th>
+                    <th>Expense</th>
+                    <th>Savings</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Add rows dynamically using JavaScript or server-side rendering -->
+                <tr>
+                    <td>January 2023</td>
+                    <td>1000.00</td>
+                    <td>800.00</td>
+                    <td>200.00</td>
+                </tr>
+                <tr>
+                    <td>February 2023</td>
+                    <td>1200.00</td>
+                    <td>1000.00</td>
+                    <td>200.00</td>
+                </tr>
+                <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-container">
+        <h2>Additional Notes</h2>
+        <table id="notes-table" class="notes-table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Add rows dynamically using JavaScript or server-side rendering -->
+                <tr>
+                    <td>2023-06-01</td>
+                    <td>Meeting with client at 2 PM</td>
+                </tr>
+                <tr>
+                    <td>2023-06-05</td>
+                    <td>Submit expense report</td>
+                </tr>
+                <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
