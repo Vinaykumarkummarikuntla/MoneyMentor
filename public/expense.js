@@ -68,6 +68,9 @@ function showExpenseDetails (expense) {
     <td> <button onclick = "deleteExpense('${expense.id}')" class = "btn btn-danger">Delete</button></td>
     </tr>`
   parentElement.innerHTML = parentElement.innerHTML + childHTML
+
+  showYearReportUI()
+
 }
 
 // delete expense in backend
@@ -145,7 +148,7 @@ function showLeaderBoardUI (leaderboardresponse, Count) {
     </tr>`
   parentElement.innerHTML = parentElement.innerHTML + childHTML
 
-  showYearReportUI()
+  
 }
 
 // decoding token
