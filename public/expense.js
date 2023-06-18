@@ -241,4 +241,16 @@ function downloadfile (event) {
     .catch((err) => {
       console.log(err)
     })
-}
+
+  axios
+    .get('http://localhost:4000/getalldownloadedreports', {
+      headers: { Authorization: token }
+    })
+    .then((response) => {
+      console.log('all downloaded files', response)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+    
+  }
