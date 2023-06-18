@@ -234,7 +234,6 @@ function downloadfile (event) {
         a.href = response.data.fileURL
         a.download = 'myexpense.csv'
         a.click()
-        console.log(response)
       } else {
         throw new Error(response.data.message)
       }
