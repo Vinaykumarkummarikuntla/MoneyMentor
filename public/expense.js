@@ -229,7 +229,15 @@ function downloadfile (event) {
       headers: { Authorization: token }
     })
     .then((response) => {
-      console.log(response)
+      if (response.status === 200) {
+        const a = document.createElement('a')
+        a.href = response.data.fileURL
+        a.download = 'myexpense.csv'
+        a.click()
+        console.log(response)
+      } else {
+        throw new Error(response.data.message)
+      }
     })
     .catch((err) => {
       console.log(err)
