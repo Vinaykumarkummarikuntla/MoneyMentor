@@ -70,7 +70,6 @@ function showExpenseDetails (expense) {
   parentElement.innerHTML = parentElement.innerHTML + childHTML
 
   showYearReportUI()
-
 }
 
 // delete expense in backend
@@ -147,8 +146,6 @@ function showLeaderBoardUI (leaderboardresponse, Count) {
     <td>${leaderboardresponse.totalAmount}</td> 
     </tr>`
   parentElement.innerHTML = parentElement.innerHTML + childHTML
-
-  
 }
 
 // decoding token
@@ -164,7 +161,7 @@ const parseJwt = (token) => {
 document.getElementById('rzp-button1').onclick = async function (e) {
   alert('welcome to razorpay')
   e.preventDefault()
-  const token = localStorage.getItem('token')
+
   const response = await axios.get('http://localhost:4000/buypremiumship', {
     headers: { Authorization: token }
   })
@@ -220,4 +217,21 @@ function showYearReportUI () {
     <td>200</td> 
     </tr>`
   parentElement.innerHTML = parentElement.innerHTML + childHTML
+}
+
+// download report
+function downloadfile (event) {
+  event.preventDefault()
+  const token = localStorage.getItem('token')
+
+  axios
+    .get('http://localhost:4000/downloadreport', {
+      headers: { Authorization: token }
+    })
+    .then((response) => {
+      console.log(response)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
 }

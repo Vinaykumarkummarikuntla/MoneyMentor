@@ -326,7 +326,24 @@ td {
   margin-bottom: 20px;
 }
 
+.button-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
 
+}
+#downloadreportfile {
+  background-color: #3838b8;
+  width: 200px; /* Set the desired width of the button */
+  height: 40px; /* Set the desired height of the button */
+  color: #fff;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  
+}
 
 @media (max-width: 740px) {
     * {

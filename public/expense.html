@@ -34,6 +34,14 @@
     <div id="message" class="message"></div>
     <div id="leaderboard" class="leaderboard"></div>
 
+<br>
+<!-- download button -->
+<div class = button-container>
+<button onclick="downloadfile(event)" id="downloadreportfile">Download File</button>
+</div>
+<!-- download button -->
+
+
     <div class="container">
       <form onsubmit="saveToServer(event)">
         <div class="form-group">
@@ -68,7 +76,7 @@
           </select>
         </div>
         <br />
-        <div class="form-group">
+        <!-- <div class="form-group">
           <label for="image">Upload Image:</label>
           <input
             type="file"
@@ -76,8 +84,8 @@
             id="image"
             name="image"
           />
-        </div>
-        <br />
+        </div> -->
+        <!-- <br /> -->
         <div>
           <button type="submit" class="btn btn-success">Add Expense</button>
         </div>

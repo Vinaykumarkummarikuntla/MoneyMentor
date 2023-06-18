@@ -13,6 +13,7 @@ const expenseRouter = require('./routes/expense')
 const purchaseRouter = require('./routes/purchase')
 const premiumFeatureRouter = require('./routes/premiumFeature')
 const forgotPasswordRouter = require('./routes/forgotPassword')
+const downloadreportRouter = require('./routes/downloadreport')
 
 const bcrypt = require('bcrypt')
 
@@ -46,6 +47,7 @@ app.use(expenseRouter)
 app.use(purchaseRouter)
 app.use(premiumFeatureRouter)
 app.use(forgotPasswordRouter)
+app.use(downloadreportRouter)
 
 app.get('/public/expense.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'expense.html'))
