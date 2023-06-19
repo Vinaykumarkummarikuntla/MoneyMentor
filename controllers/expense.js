@@ -52,20 +52,24 @@ exports.expense = async (req, res, next) => {
   }
 }
 
-const itemsPerPage = 3
+const defultItemsPerPage = 5
 // get expense details
 exports.getexpense = async (req, res, next) => {
   try {
-    const page = parseInt(req.query.page) 
-    console.log("the page number",page)
+    const pageSize = parseInt(req.query.pageSize) || defultItemsPerPage
+
+    const page = parseInt(req.query.page) || 1
+    console.log('the page number', page)
+
+    const offsetsize = (page - 1) * pageSize
 
     console.log('req.user id -------->', req.user.id)
     const totalItems = await Expense.count({ where: { signupId: req.user.id } })
 
     const expense = await Expense.findAll({
       where: { signupId: req.user.id },
-      offset: (page - 1) * itemsPerPage,
-      limit: itemsPerPage
+      offset: offsetsize,
+      limit: pageSize
     }
     )
 
@@ -74,11 +78,11 @@ exports.getexpense = async (req, res, next) => {
       expensedetails: expense,
       pageData: {
         currentPage: page,
-        hasNextPage: itemsPerPage * page < totalItems,
+        hasNextPage: pageSize * page < totalItems,
         nextPage: page + 1,
         hasPreviousPage: page > 1,
         previousPage: page - 1,
-        lastPage: Math.ceil(totalItems / itemsPerPage)
+        lastPage: Math.ceil(totalItems / pageSize)
       }
     })
     console.log('the expense details are getting')

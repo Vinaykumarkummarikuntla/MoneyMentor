@@ -103,9 +103,11 @@ function getExpenseDetails (page) {
   const parentElement = document.getElementsByClassName('tbody')[0]
   parentElement.innerHTML = ''
 
+  
+  const pageSize = localStorage.getItem('expensePageSize')
   const token = localStorage.getItem('token')
   axios
-    .get(`http://localhost:4000/expensedetails?page=${page}`, {
+    .get(`http://localhost:4000/expensedetails?page=${page}&pageSize=${pageSize}`, {
       headers: { Authorization: token }
     })
     .then((response) => {
@@ -309,4 +311,14 @@ function downloadfile (event) {
     .catch((err) => {
       console.log(err)
     })
+}
+
+// pagi Size Preference
+
+function updatePageSize () {
+  const pageSizeSelect = document.getElementById('pageSize').value
+  console.log(pageSizeSelect)
+  localStorage.setItem('expensePageSize', pageSizeSelect)
+  const defaultPage = 1
+  getExpenseDetails (defaultPage)
 }
