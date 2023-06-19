@@ -15,6 +15,8 @@ router.post('/expensedetails', userAuthentication.authenticate, expenseControlle
 
 // router.get("/expensedetails",expenseController.getexpense);
 router.get('/expensedetails', userAuthentication.authenticate, expenseController.getexpense)
+// page number
+// router.get('/expensedetails', userAuthentication.authenticate, expenseController.getexpense)
 
 // expense details deleted
 router.delete('/deleteexpense/:expenseid', userAuthentication.authenticate, expenseController.deleteexpense)

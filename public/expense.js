@@ -24,37 +24,28 @@ function saveToServer (event) {
 }
 
 // retreiveing the expense details
-window.addEventListener('DOMContentLoaded', () => {
-  const token = localStorage.getItem('token')
-  axios
-    .get('http://localhost:4000/expensedetails', {
-      headers: { Authorization: token }
-    })
-    .then((response) => {
-      const result = response.data.expensedetails
+window
+  .addEventListener('DOMContentLoaded', () => {
+    const page = 1
+    getExpenseDetails(page)
 
-      for (let i = 0; i < result.length; i++) {
-        showExpenseDetails(result[i])
-      }
-      console.log(result)
+    const premiumToken = localStorage.getItem('token')
+    console.log(
+      'at the time of getting expene details localStorage Premiumtoken getItem',
+      premiumToken
+    )
+    const decodeToken = parseJwt(premiumToken)
+    console.log('decoded Token', decodeToken)
+    console.log(decodeToken.isPremiumUser)
 
-      const premiumToken = localStorage.getItem('token')
-      console.log(
-        'at the time of getting expene details localStorage Premiumtoken getItem',
-        premiumToken
-      )
-      const decodeToken = parseJwt(premiumToken)
-      console.log('decoded Token', decodeToken)
-      console.log(decodeToken.isPremiumUser)
-
-      if (decodeToken.isPremiumUser) {
-        isPremiumUserMessage()
-      }
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-})
+    if (decodeToken.isPremiumUser) {
+      isPremiumUserMessage()
+    }
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+// })
 
 // expense add to UI
 function showExpenseDetails (expense) {
@@ -69,7 +60,72 @@ function showExpenseDetails (expense) {
     </tr>`
   parentElement.innerHTML = parentElement.innerHTML + childHTML
 
-  showYearReportUI()
+  // parentElement.insertAdjacentHTML('beforeend', childHTML)
+
+  // showYearReportUI()
+}
+
+// Pagination
+function showPagination ({
+  currentPage,
+  hasNextPage,
+  nextPage,
+  hasPreviousPage,
+  previousPage,
+  lastPage
+}) {
+  const pagination = document.querySelector('.pagination-container')
+
+  pagination.innerHTML = ''
+  // previousPage
+  if (hasPreviousPage) {
+    const btn2 = document.createElement('button')
+    btn2.textContent = previousPage
+    btn2.addEventListener('click', () => getExpenseDetails(previousPage))
+    pagination.appendChild(btn2)
+  }
+  // currentPage
+  const btn1 = document.createElement('button')
+  btn1.textContent = currentPage
+  btn1.addEventListener('click', () => getExpenseDetails(currentPage))
+  pagination.appendChild(btn1)
+
+  // nextPage
+  if (hasNextPage) {
+    const btn3 = document.createElement('button')
+    btn3.textContent = nextPage
+    btn3.addEventListener('click', () => getExpenseDetails(nextPage))
+    pagination.appendChild(btn3)
+  }
+}
+
+function getExpenseDetails (page) {
+  const parentElement = document.getElementsByClassName('tbody')[0]
+  parentElement.innerHTML = ''
+
+  const token = localStorage.getItem('token')
+  axios
+    .get(`http://localhost:4000/expensedetails?page=${page}`, {
+      headers: { Authorization: token }
+    })
+    .then((response) => {
+      console.log(response)
+      const result = response.data.expensedetails
+      const paginationResponse = response.data.pageData
+      console.log('getexpensedetais callled', result)
+      console.log(
+        'getexpensedetais callled while paginationREsponse',
+        paginationResponse
+      )
+
+      for (let i = 0; i < result.length; i++) {
+        showExpenseDetails(result[i])
+      }
+      showPagination(paginationResponse)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
 }
 
 // delete expense in backend
@@ -205,6 +261,7 @@ document.getElementById('rzp-button1').onclick = async function (e) {
   })
 }
 
+// showing year report UI
 function showYearReportUI () {
   document.getElementById('report-main').style.display = 'block'
   const parentElement = document.getElementById('dynamic-yearlyreport')
@@ -252,5 +309,4 @@ function downloadfile (event) {
     .catch((err) => {
       console.log(err)
     })
-    
-  }
+}

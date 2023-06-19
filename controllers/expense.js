@@ -31,7 +31,7 @@ exports.expense = async (req, res, next) => {
       // console.log("currentTotalAmount" ,currentTotalAmount)
       await User.update({ totalAmount: currentTotalAmount }, { where: { id: req.user.id } }
         // { transaction: t }
-        )
+      )
       // res.status(200).json({ expense })
     }
     // } catch (error) {
@@ -52,15 +52,35 @@ exports.expense = async (req, res, next) => {
   }
 }
 
-
-
+const itemsPerPage = 3
 // get expense details
 exports.getexpense = async (req, res, next) => {
   try {
+    const page = parseInt(req.query.page) 
+    console.log("the page number",page)
+
     console.log('req.user id -------->', req.user.id)
-    const expense = await Expense.findAll({ where: { signupId: req.user.id } })
+    const totalItems = await Expense.count({ where: { signupId: req.user.id } })
+
+    const expense = await Expense.findAll({
+      where: { signupId: req.user.id },
+      offset: (page - 1) * itemsPerPage,
+      limit: itemsPerPage
+    }
+    )
+
     // const expense = await Expense.findAll();
-    res.status(200).json({ expensedetails: expense })
+    res.status(200).json({
+      expensedetails: expense,
+      pageData: {
+        currentPage: page,
+        hasNextPage: itemsPerPage * page < totalItems,
+        nextPage: page + 1,
+        hasPreviousPage: page > 1,
+        previousPage: page - 1,
+        lastPage: Math.ceil(totalItems / itemsPerPage)
+      }
+    })
     console.log('the expense details are getting')
   } catch (err) {
     console.error(err)

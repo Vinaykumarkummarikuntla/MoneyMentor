@@ -345,6 +345,39 @@ td {
   
 }
 
+
+/* pagination button */
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  width:25%;
+}
+
+.pagination-container button {
+  padding: 10px 20px;
+  font-size: 16px;
+  margin: 0 5px;
+  background-color: #eaeaea;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.pagination-container button:hover {
+  background-color: #ccc;
+}
+
+.pagination-container button:active {
+  background-color: #999;
+  color: white;
+}
+
+
+
 @media (max-width: 740px) {
     * {
       font-size: 70%;
