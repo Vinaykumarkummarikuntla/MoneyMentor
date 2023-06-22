@@ -13,3 +13,6 @@ jspm_packages/
 # Other files and directories to ignore
 .env
 .cache
+
+.vscode/
+.github/
