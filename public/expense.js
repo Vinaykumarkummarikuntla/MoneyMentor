@@ -27,25 +27,25 @@ function saveToServer (event) {
 window
   .addEventListener('DOMContentLoaded', () => {
     const page = 1
-    getExpenseDetails(page)
+    try {
+      getExpenseDetails(page)
 
-    const premiumToken = localStorage.getItem('token')
-    console.log(
-      'at the time of getting expene details localStorage Premiumtoken getItem',
-      premiumToken
-    )
-    const decodeToken = parseJwt(premiumToken)
-    console.log('decoded Token', decodeToken)
-    console.log(decodeToken.isPremiumUser)
+      const premiumToken = localStorage.getItem('token')
+      console.log(
+        'at the time of getting expene details localStorage Premiumtoken getItem',
+        premiumToken
+      )
+      const decodeToken = parseJwt(premiumToken)
+      console.log('decoded Token', decodeToken)
+      console.log(decodeToken.isPremiumUser)
 
-    if (decodeToken.isPremiumUser) {
-      isPremiumUserMessage()
+      if (decodeToken.isPremiumUser) {
+        isPremiumUserMessage()
+      }
+    } catch (err) {
+      console.log(err)
     }
   })
-  .catch((err) => {
-    console.log(err)
-  })
-// })
 
 // expense add to UI
 function showExpenseDetails (expense) {
@@ -103,7 +103,6 @@ function getExpenseDetails (page) {
   const parentElement = document.getElementsByClassName('tbody')[0]
   parentElement.innerHTML = ''
 
-  
   const pageSize = localStorage.getItem('expensePageSize')
   const token = localStorage.getItem('token')
   axios
@@ -219,6 +218,7 @@ const parseJwt = (token) => {
 document.getElementById('rzp-button1').onclick = async function (e) {
   alert('welcome to razorpay')
   e.preventDefault()
+  const token = localStorage.getItem('token')
 
   const response = await axios.get('http://localhost:4000/buypremiumship', {
     headers: { Authorization: token }
@@ -320,5 +320,5 @@ function updatePageSize () {
   console.log(pageSizeSelect)
   localStorage.setItem('expensePageSize', pageSizeSelect)
   const defaultPage = 1
-  getExpenseDetails (defaultPage)
+  getExpenseDetails(defaultPage)
 }

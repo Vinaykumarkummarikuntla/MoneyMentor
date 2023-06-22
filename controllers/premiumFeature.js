@@ -1,4 +1,4 @@
-const Expense = require('../models/expensemodel')
+// const Expense = require('../models/expensemodel')
 const Sequelize = require('sequelize')
 const User = require('../models/signupmodel')
 const logger = require('../logger')
@@ -13,6 +13,8 @@ exports.showleaderboard = async (req, res, next) => {
     res.status(200).json({ leaderboardresponse: leaderboard })
   } catch (error) {
     logger.error('An error occurred:', error)
-    res.status(500).json({ error: 'An error occurred while fetching leaderboard data' })
+    res
+      .status(500)
+      .json({ error: 'An error occurred while fetching leaderboard data' })
   }
 }

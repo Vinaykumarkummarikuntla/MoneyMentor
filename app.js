@@ -1,7 +1,10 @@
 const path = require('path')
+const fs = require('fs')
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+// const helmet = require('helmet')
+const morgan = require('morgan')
 
 require('dotenv').config()
 
@@ -28,8 +31,21 @@ const forgotPassword = require('./models/forgotPasswordRequestsmodel')
 const loginController = require('./controllers/login')
 const signupController = require('./controllers/signup')
 
+const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
+
 const app = express()
+
 app.use(cors())
+// app.use(helmet())
+app.use(morgan('combined', { stream: accessLogStream }))
+
+// Set the Content Security Policy (CSP) directive
+// app.use(helmet.contentSecurityPolicy({
+//   directives: {
+//     defaultSrc: ["'self'"],
+//     scriptSrc: ["'self'", 'https://cdnjs.cloudflare.com', 'https://checkout.razorpay.com', 'https://cdn.jsdelivr.net']
+//   }
+// }))
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())

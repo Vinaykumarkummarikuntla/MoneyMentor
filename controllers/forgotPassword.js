@@ -1,23 +1,21 @@
 require('dotenv').config()
+const logger = require('../logger')
 const SibApiV3Sdk = require('sib-api-v3-sdk')
 
 exports.forgotpassword = async (req, res) => {
-
   const mail = req.body.email
-  console.log("requested forgot password mail",mail)
-
+  console.log('requested forgot password mail', mail)
 
   const defaultClient = SibApiV3Sdk.ApiClient.instance
 
   const apiKey = defaultClient.authentications['api-key']
   apiKey.apiKey = process.env.FORGOT_API_KEY
-  
 
   const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi()
   const sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail()
 
   // Set the sender
-  sendSmtpEmail.sender = { name: 'MoneyMentor', email: 'kvk.9618@gmail.com' }
+  sendSmtpEmail.sender = { name: process.env.SENDER_NAME, email: process.env.SENDER_MAIL }
 
   // Set the recipient
   sendSmtpEmail.to = [{ email: mail }]
@@ -34,11 +32,13 @@ exports.forgotpassword = async (req, res) => {
 `
 
   // Send the email
-  apiInstance.sendTransacEmail(sendSmtpEmail)
+  apiInstance
+    .sendTransacEmail(sendSmtpEmail)
     .then(function (data) {
       console.log('Email sent successfully:', data)
     })
-    .catch(function (error) {
-      console.error('Error sending email:', error)
+    .catch(function (err) {
+      logger.error('An error occurred:', err)
+      console.error('Error sending email:', err)
     })
 }

@@ -18,7 +18,7 @@ exports.downloadreport = async (req, res) => {
 
     res.status(200).json({ fileURL, message: true })
   } catch (err) {
-    console.error(err)
+    logger.error('An error occurred:', err)
     res.status(500).json({ fileURL: '', success: false, msg: err })
   }
 }
@@ -30,7 +30,7 @@ exports.showallreports = async (req, res) => {
     console.log(stringfyfiles)
     res.status(200).json({ stringfyfiles, message: true })
   } catch (err) {
-    console.error(err)
+    logger.error('An error occurred:', err)
     res.status(500).json({ success: false, msg: err })
   }
 }

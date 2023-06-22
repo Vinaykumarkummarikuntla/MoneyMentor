@@ -47,7 +47,7 @@ exports.expense = async (req, res, next) => {
     // if (t) {
     //   await t.rollback()
     // }
-    console.error(err)
+    logger.error('An error occurred:', err)
     res.status(500).json({ msg: err })
   }
 }
@@ -87,7 +87,7 @@ exports.getexpense = async (req, res, next) => {
     })
     console.log('the expense details are getting')
   } catch (err) {
-    console.error(err)
+    logger.error('An error occurred:', err)
     res.status(500).json({ msg: err })
   }
 }
@@ -122,7 +122,7 @@ exports.deleteexpense = async (req, res, next) => {
     if (t) {
       await t.rollback()
     }
-    console.log(err)
+    logger.error('An error occurred:', err)
     res.status(500).json({ error: 'An error occurred while deleting the expense' })
   }
 }
