@@ -120,6 +120,8 @@ dist
 
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
+.vscode
+.github
 
 # yarn v2
 .yarn/cache
@@ -133,6 +135,7 @@ dist
 .webpack/
 
 # Optional stylelint cache
+.eslintrcs.js
 
 # SvelteKit build / generate output
 .svelte-kit
