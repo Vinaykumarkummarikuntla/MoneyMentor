@@ -10,7 +10,6 @@ function generateAccessToken (id, mail, isPremiumUser) {
   return jwt.sign(
     { userId: id, mail, isPremiumUser },
     process.env.GENERATEACCESSTOKEN
-    // 'OM43lvuJhjSc74Wk9KGdKq33QQu7uojMhAyprCt1Mo5JKqjFJ2IdrQDgEm8omL2vN4hDglXFwNroOezKVBK+gg=='
   )
 }
 
@@ -26,11 +25,11 @@ exports.logindetails = async (req, res, next) => {
       }
     })
     if (user) {
-      console.log("Stored hashed password:", user.password);
-      console.log("Entered password:", password);
+      console.log('Stored hashed password:', user.password)
+      console.log('Entered password:', password)
       const isMatched = await bcrypt.compare(password, user.password)
 
-      console.log("Password comparison result:", isMatched);
+      console.log('Password comparison result:', isMatched)
 
       if (isMatched) {
         // res.redirect("/expense.html");
