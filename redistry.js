@@ -1,5 +1,6 @@
+require('dotenv').config()
 const redis = require('redis');
-const connectionString = 'moneymentor-redis.redis.cache.windows.net:6380,password=DmeVZBd6qH9uvNcP4k8ijjjhRikobhrA2AzCaMB8JnA=,ssl=True,abortConnect=False';
+const connectionString = process.env.CONNECTIONSTRING
 
 
 const client = redis.createClient(connectionString);
