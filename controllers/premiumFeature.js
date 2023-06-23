@@ -18,3 +18,4 @@ exports.showleaderboard = async (req, res, next) => {
       .json({ error: 'An error occurred while fetching leaderboard data' })
   }
 }
+

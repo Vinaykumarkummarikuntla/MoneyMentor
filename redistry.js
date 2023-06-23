@@ -2,6 +2,7 @@ require('dotenv').config()
 const redis = require('redis')
 const connectionString = process.env.CONNECTIONSTRING
 
+
 const client = redis.createClient(connectionString)
 
 client.on('connect', () => {

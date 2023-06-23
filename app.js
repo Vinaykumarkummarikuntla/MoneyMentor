@@ -5,11 +5,12 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 // const helmet = require('helmet')
 const morgan = require('morgan')
+// const bcrypt = require('bcrypt')
 
 require('dotenv').config()
 
 // middleware
-const userAuthentication = require('./middleware/auth')
+// const userAuthentication = require('./middleware/auth')
 
 // routes
 const expenseRouter = require('./routes/expense')
@@ -17,8 +18,7 @@ const purchaseRouter = require('./routes/purchase')
 const premiumFeatureRouter = require('./routes/premiumFeature')
 const forgotPasswordRouter = require('./routes/forgotPassword')
 const downloadreportRouter = require('./routes/downloadreport')
-
-const bcrypt = require('bcrypt')
+const loginandsignupRouter = require('./routes/signupandlogin')
 
 // models and database
 const sequelize = require('./util/database')
@@ -27,34 +27,18 @@ const expense = require('./models/expensemodel')
 const order = require('./models/ordermodel')
 const forgotPassword = require('./models/forgotPasswordRequestsmodel')
 
-// controllers
-const loginController = require('./controllers/login')
-const signupController = require('./controllers/signup')
-
-const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
+const accessLogStream = fs.createWriteStream(
+  path.join(__dirname, 'access.log'),
+  { flags: 'a' }
+)
 
 const app = express()
 
 app.use(cors())
 // app.use(helmet())
 app.use(morgan('combined', { stream: accessLogStream }))
-
-// Set the Content Security Policy (CSP) directive
-// app.use(helmet.contentSecurityPolicy({
-//   directives: {
-//     defaultSrc: ["'self'"],
-//     scriptSrc: ["'self'", 'https://cdnjs.cloudflare.com', 'https://checkout.razorpay.com', 'https://cdn.jsdelivr.net']
-//   }
-// }))
-
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
-// app.use(express.static(path.join(__dirname, "public")));
-
-// login
-app.post('/signupdetails', signupController.signupdetails)
-// signup
-app.post('/logindetails', loginController.logindetails)
 
 // Serve static files from the "public" directory
 app.use(express.static(path.join(__dirname, '/public')))
@@ -64,6 +48,7 @@ app.use(purchaseRouter)
 app.use(premiumFeatureRouter)
 app.use(forgotPasswordRouter)
 app.use(downloadreportRouter)
+app.use(loginandsignupRouter)
 
 app.get('/public/expense.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'expense.html'))
@@ -76,6 +61,7 @@ app.get('/public/expense.js', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'expense.js'))
 })
 
+//  models relationships
 signup.hasMany(expense)
 expense.belongsTo(signup)
 

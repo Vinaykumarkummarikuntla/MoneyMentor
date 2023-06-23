@@ -18,12 +18,7 @@ function generateAccessToken (id, mail, isPremiumUser) {
 // purcahse premium
 exports.purchasePremium = async (req, res) => {
   try {
-    // key = 'process.env.RAZORPAY_KEY_ID',
-    // secret_key = 'process.env.RAZORPAY_SECRET_KEY'
-    // key = 'rzp_test_SKR2d6ojcvCQ9G',
-    // secret_key = 'qS5QVk688OpL9qoQNKxncH2v'
-
-    const rzp = new Razorpay({
+      const rzp = new Razorpay({
       key_id: process.env.RAZORPAY_KEY_ID,
       key_secret: process.env.RAZORPAY_SECRET_KEY
     })
