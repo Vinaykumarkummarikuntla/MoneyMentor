@@ -62,7 +62,7 @@ function showExpenseDetails (expense) {
 
   // parentElement.insertAdjacentHTML('beforeend', childHTML)
 
-  // showYearReportUI()
+  showYearReportUI()
 }
 
 // Pagination
@@ -163,7 +163,8 @@ function isPremiumUserMessage () {
     '<h4>You are a Premium User. Access All Features Now!</h4>'
 
   document.getElementById('leaderboard').innerHTML =
-    '<button onclick = "showLeaderBoard()" class ="btn btn-secondary btn-lg" > Show LeaderBoard </button>'
+  '<div style="display: flex; justify-content: center; align-items: center; height: 10vh;">' +
+    '<button id="showLeaderboardButton" onclick = "showLeaderBoard()" class ="btn btn-secondary" style="background-color: #4caf50; color: #fff;width:15% " > Show LeaderBoard </button>'
 }
 
 // get show LeaderBoard

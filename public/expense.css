@@ -1,22 +1,66 @@
-body {
-  background: linear-gradient(#5ed7b7, #8fe7d1);
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  background-color: linear-gradient(#5ed7b7, #8fe7d1);
+  padding: 20px;
+  text-align: center;
+  color: white;
+}
+
+
+
+
+.text-center{
+  font-family: 'Source Code Pro', monospace;
+  /* color: !important; */
+}
 .container {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  
+  margin-top: -80px;
 }
+.addyourexpenses {
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
 
 form {
-  width: 400px;
+  order: 2;
+  width: 500px;
   background-color: rgba(255, 255, 255, 0.9);
-  padding: 20px;
+  padding: 10px;
   border-radius: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-bottom: 0;
 
 }
 
+
+.button-container{
+  padding-bottom: 10px;
+
+}
 label {
   font-weight: bold;
 }
@@ -31,6 +75,7 @@ select {
   font-size: 14px;
 }
 
+
 button {
   width: 100%;
   background-color: #4caf50;
@@ -44,6 +89,8 @@ button {
 .text-center {
   text-align: center;
   color: #fff;
+  padding-top: 10px;
+
 }
 
 table.table {
@@ -86,6 +133,7 @@ table.table {
   max-width: 800px;
   margin: 0 auto;
   padding: 2rem;
+  padding-top: 30px;
   background-color: #f5f5f5;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -352,19 +400,22 @@ td {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 10px;
+  /* margin-top: 2px; */
   width:25%;
+  margin: 0 auto; 
+  
 }
 
 .pagination-container button {
-  padding: 10px 20px;
-  font-size: 16px;
-  margin: 0 5px;
+  padding: 2px 5px; /* Adjust the padding values to decrease button size */
+  font-size: 14px; /* Adjust the font-size value to decrease button size */
+  margin: 0 2px; /* Adjust the margin values to decrease space between buttons */
   background-color: #eaeaea;
   border: none;
   border-radius: 3px;
   cursor: pointer;
-  margin-bottom: 10px;
+  margin-bottom: 5px; /* Adjust the margin-bottom value to decrease space between buttons */
+  width: 25px; /* Adjust the width value to decrease button width */
 }
 
 .pagination-container button:hover {
@@ -374,6 +425,85 @@ td {
 .pagination-container button:active {
   background-color: #999;
   color: white;
+}
+
+#pageSize{
+  width: 4%;
+  height: fit-content;
+  display: flex;
+  justify-content: center ;
+  align-items: center;
+  /* margin: 0 auto;  */
+  height: 50%;
+  text-align: center;
+  
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.expense-per-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2px;
+  /* padding-left: 5%; */
+}
+#expenseperpage{
+  font-family: 'Times New Roman', Times, serif;
+  /* text-align:right; */
+  /* padding-left: 5%; */
+}
+section {
+   /* Set the height of each section to 100% of the viewport height */
+  width: 100%; /* Set the width of each section to 100% */
+}
+
+.section1 {
+  background-color:#bccbde; /* Set the background color of section 1 */
+  height: 50px;
+  margin-top: 0;
+  margin-bottom: 0; 
+  display: flex;
+  align-items: center;
+  justify-content: center ;
+  
+  padding-top: 15px; 
+
+}
+
+.section2 {
+  background-color:#c2dde6;
+  /* height: 5vh; */
+   /* Set the background color of section 2 */
+}
+
+.section3 {
+  background-color: #e6e9f0; /* Set the background color of section 3 */
+  margin-bottom: 0;
+  padding-bottom: 0;
+  height:85%
+  /* padding-top: ; */
+}
+
+.section4 {
+  background-color : #bccbde;; /* Set the background color of section 3 */
+}
+.section5{
+  background-color:#c2dde6; /* Set the background color of section 3 */
+}
+.section6{
+  background-color:#5A7670;; /* Set the background color of section 3 */
+}
+.section7 {
+  background-color:#bccbde; 
+ height: 20%;
 }
 
 
