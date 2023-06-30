@@ -4,7 +4,8 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   height: 100%;
 }
 
@@ -13,26 +14,42 @@ body {
   flex-direction: column;
 }
 
+/* TODO HEADER */
+
 header {
   background-color: linear-gradient(#5ed7b7, #8fe7d1);
   padding: 20px;
   text-align: center;
-  color: white;
+    color: white;
 }
 
+#money {
+  margin-top: 10px;
+  margin-bottom:20px;
+}
 
-
-
-.text-center{
-  font-family: 'Source Code Pro', monospace;
+.text-center {
+  font-family: " Poppins  ", monospace !important ; 
   /* color: !important; */
 }
+
+
+#rzp-button1 {
+  width: 15%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+/*  TODO ADD YOUR EXPENSES */
+
 .container {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  
+
   margin-top: -80px;
 }
 .addyourexpenses {
@@ -43,7 +60,6 @@ header {
   align-items: center;
 }
 
-
 form {
   order: 2;
   width: 500px;
@@ -53,14 +69,12 @@ form {
   padding-top: 10px;
   padding-bottom: 10px;
   margin-bottom: 0;
-
 }
 
-
-.button-container{
+.button-container {
   padding-bottom: 10px;
-
 }
+
 label {
   font-weight: bold;
 }
@@ -75,7 +89,6 @@ select {
   font-size: 14px;
 }
 
-
 button {
   width: 100%;
   background-color: #4caf50;
@@ -88,9 +101,8 @@ button {
 
 .text-center {
   text-align: center;
-  color: #fff;
+  color: #0c0b0a;
   padding-top: 10px;
-
 }
 
 table.table {
@@ -99,70 +111,42 @@ table.table {
   margin-top: 20px;
 }
 
-.id{
-  color:chocolate;
+.id {
+  color: chocolate;
 }
-.table{
+.table {
   width: 75% !important;
   margin: auto;
 }
 
-.table-container{
+.table-container {
   text-align: center;
-  padding-bottom: 20px; 
+  padding-bottom: 20px;
 }
 
 .premium {
   margin-top: 1%;
   background-color: #ccc;
-
 }
-.message{
-  color:darkslategrey;
+
+.message {
+  color: darkslategrey;
   text-align: center;
-  font-style: italic ;
-
+  font-style: italic;
 }
 
-
-
-/* Leader Board */
-
-#leaderboard-main {
-  width: 80%;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 2rem;
-  padding-top: 30px;
-  background-color: #f5f5f5;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.expensesrowid {
+  background-color: rgb(83, 190, 73) !important;
 }
+
+/* TODO LEADER BOARD */
 
 #leaderboard-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-family: 'Source Code Pro', monospace;
   margin-bottom: 1rem;
-}
-
-.leaderboard-share {
-  width: 4.5rem;
-  height: 3rem;
-  background-color: #f55e77;
-  border: 0;
-  border-bottom: 0.2rem solid #c0506a;
-  border-radius: 2rem;
-  cursor: pointer;
-}
-
-.leaderboard-share:active {
-  border-bottom: 0;
-}
-
-.leaderboard-share i {
-  color: #fff;
-  font-size: 2rem;
 }
 
 #leaderboard-table {
@@ -170,11 +154,16 @@ table.table {
 }
 
 #leaderboard-table table {
-  width: 80%;
+  width: 75%;
   border-collapse: collapse;
   table-layout: fixed;
   color: #141a39;
   cursor: default;
+  margin: 0 auto;
+  margin-bottom:3%;
+  
+  justify-content: center !important;
+  
 }
 
 tr {
@@ -182,99 +171,45 @@ tr {
   border-radius: 0.2rem;
 }
 
-tr:not(:first-child):hover {
-  background-color: #fff;
+/* !all tables font style and sizes */
+td {
+  height: 2rem;
+  font-family: "Rubik", sans-serif;
+  font-size: 1 rem;
+  padding: 1rem 2rem;
+  position: relative;
+}
+
+#dynamic-leaderboard td {
+  /* height: 1rem; */
+  /* font-family: "Rubik", sans-serif; */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 25px;
+  /* padding: 1rem 1rem; */
+  position: relative;
+}
+
+tr.leaderboardrow:hover {
+  background-color: #4caf50;
   transform: scale(1.1);
   -webkit-box-shadow: 0px 5px 15px 8px #e4e7fb;
   box-shadow: 0px 5px 15px 8px #e4e7fb;
 }
 
-tr:nth-child(odd) {
-  background-color: #f9f9f9;
-}
 
-tr:nth-child(1) {
+
+#dynamic-leaderboard tr.leaderboardrow {
   color: #fff;
-}
+  background-color:#141a39;
+} 
 
-td {
-  height: 5rem;
-  font-family: "Rubik", sans-serif;
-  font-size: 1.4rem;
-  padding: 1rem 2rem;
-  position: relative;
-}
 
-.number {
-  width: 1rem;
-  font-size: 2.2rem;
-  font-weight: bold;
-  text-align: left;
-}
-
-.name {
-  text-align: left;
-  font-size: 1.2rem;
-}
-
-.points {
-  font-weight: bold;
-  font-size: 1.3rem;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-}
-
-.points:first-child {
-  width: 10rem;
-}
-
-.gold-medal {
-  height: 3rem;
-  margin-left: 1.5rem;
-}
-
-.ribbon {
-  display: none;
-}
-
-#leaderboard-main .ribbon {
-  display: block;
-}
-
-.ribbon {
-  width: 42rem;
-  height: 5.5rem;
-  top: -0.5rem;
-  background-color: #5c5be5;
-  position: absolute;
-  left: -1rem;
-  -webkit-box-shadow: 0px 15px 11px -6px #7a7a7d;
-  box-shadow: 0px 15px 11px -6px #7a7a7d;
-}
-
-.ribbon::before {
-  content: "";
-  height: 1.5rem;
-  width: 1.5rem;
-  bottom: -0.8rem;
-  left: 0.35rem;
-  transform: rotate(45deg);
-  background-color: #5c5be5;
-  position: absolute;
-  z-index: -1;
-}
-
-.ribbon::after {
-  content: "";
-  height: 1.5rem;
-  width: 1.5rem;
-  bottom: -0.8rem;
-  right: 0.35rem;
-  transform: rotate(45deg);
-  background-color: #5c5be5;
-  position: absolute;
-  z-index: -1;
+#dynamic-leaderboard td.number,
+#dynamic-leaderboard td.name,
+#dynamic-leaderboard td.points {
+  /* Add specific classes for the first three columns */
+  background-color: red;
+  color: #ffffff;
 }
 
 #buttons {
@@ -285,42 +220,9 @@ td {
   gap: 2rem;
 }
 
-.exit {
-  width: 11rem;
-  height: 3rem;
-  font-family: "Rubik", sans-serif;
-  font-size: 1.3rem;
-  text-transform: uppercase;
-  color: #7e7f86;
-  border: 0;
-  background-color: #fff;
-  border-radius: 2rem;
-  cursor: pointer;
-}
 
-.exit:hover {
-  border: 0.1rem solid #5c5be5;
-}
 
-.continue {
-  width: 11rem;
-  height: 3rem;
-  font-family: "Rubik", sans-serif;
-  font-size: 1.3rem;
-  color: #fff;
-  text-transform: uppercase;
-  background-color: #5c5be5;
-  border: 0;
-  border-bottom: 0.2rem solid #3838b8;
-  border-radius: 2rem;
-  cursor: pointer;
-}
-
-.continue:active {
-  border-bottom: 0;
-}
-
-/* report */
+/* TODO REPORT  */
 
 /* all table text align center */
 #report-main {
@@ -328,23 +230,21 @@ td {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  
   text-align: center;
 }
 /* table set to middle */
 #report-main table {
   margin: 0 auto;
-  width: 75%; 
+  width: 75%;
   /* border-collapse: collapse; */
-
 }
 
 #report-main table th {
   text-align: center;
 }
-  /* table headers color */
+/* table headers color */
 #report-main table thead th {
-  background-color:#c0506a;
+  background-color: #70c050;
   text-align: center;
 }
 
@@ -358,12 +258,12 @@ td {
 #daytodayexpenses,
 #yearlyreport,
 #additionalnotes {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
 #downloadreport {
-  background-color:lightgreen;
+  background-color: lightgreen;
   width: 200px; /* Set the desired width of the button */
   height: 40px; /* Set the desired height of the button */
   color: #fff;
@@ -374,13 +274,12 @@ td {
   margin-bottom: 20px;
 }
 
-.button-container{
+.button-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  
-
 }
+
 #downloadreportfile {
   background-color: #3838b8;
   width: 200px; /* Set the desired width of the button */
@@ -390,30 +289,29 @@ td {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  
+  margin-bottom:2%;
 }
 
-
-/* pagination button */
+/* TODO PAGINATION BUTTON */
 
 .pagination-container {
   display: flex;
   justify-content: center;
   align-items: center;
   /* margin-top: 2px; */
-  width:25%;
-  margin: 0 auto; 
-  
+  width: 25%;
+  margin: 0 auto;
 }
 
 .pagination-container button {
   padding: 2px 5px; /* Adjust the padding values to decrease button size */
   font-size: 14px; /* Adjust the font-size value to decrease button size */
   margin: 0 2px; /* Adjust the margin values to decrease space between buttons */
-  background-color: #eaeaea;
+  background-color: #241f1f;
   border: none;
   border-radius: 3px;
   cursor: pointer;
+  margin-top: 5px;
   margin-bottom: 5px; /* Adjust the margin-bottom value to decrease space between buttons */
   width: 25px; /* Adjust the width value to decrease button width */
 }
@@ -427,16 +325,15 @@ td {
   color: white;
 }
 
-#pageSize{
+#pageSize {
   width: 4%;
   height: fit-content;
   display: flex;
-  justify-content: center ;
+  justify-content: center;
   align-items: center;
   /* margin: 0 auto;  */
   height: 50%;
   text-align: center;
-  
 }
 
 body {
@@ -451,79 +348,149 @@ body {
 .expense-per-page {
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin-bottom: 2px;
+  justify-content:center;
+  margin-top: 5px;
+  margin-bottom: 5px;
   /* padding-left: 5%; */
 }
-#expenseperpage{
-  font-family: 'Times New Roman', Times, serif;
-  /* text-align:right; */
-  /* padding-left: 5%; */
+.pagedropdown{
+  align-items: center;
 }
+#expenseperpage {
+  font-family: "Times New Roman", Times, serif;
+  text-align:right; 
+   padding-right:1%; 
+  margin-top:0%;
+}
+
+/* TODO SECTIONS */
+
 section {
-   /* Set the height of each section to 100% of the viewport height */
+  /* Set the height of each section to 100% of the viewport height */
   width: 100%; /* Set the width of each section to 100% */
 }
 
 .section1 {
-  background-color:#bccbde; /* Set the background color of section 1 */
+  background-color: #ccc; /* Set the background color of section 1 */
   height: 50px;
   margin-top: 0;
-  margin-bottom: 0; 
+  margin-bottom: 0;
   display: flex;
   align-items: center;
-  justify-content: center ;
-  
-  padding-top: 15px; 
-
+  justify-content: center;
+  padding-top: 15px;
 }
 
 .section2 {
-  background-color:#c2dde6;
-  /* height: 5vh; */
-   /* Set the background color of section 2 */
+  background-color:#BBB;
 }
 
 .section3 {
   background-color: #e6e9f0; /* Set the background color of section 3 */
   margin-bottom: 0;
   padding-bottom: 0;
-  height:85%
+  height: 85%;
   /* padding-top: ; */
 }
 
 .section4 {
-  background-color : #bccbde;; /* Set the background color of section 3 */
+  background-color: #bccbde; 
 }
-.section5{
-  background-color:#c2dde6; /* Set the background color of section 3 */
+.section5 {
+  background-color: #c2dde6; 
+  padding: 0; /* Remove any default padding */
+  margin: 0; /* Remove any default margin */
 }
-.section6{
-  background-color:#5A7670;; /* Set the background color of section 3 */
-}
+.section6 {
+  background-color: #eef7f5; 
+  /* height: 100%; */
+} 
 .section7 {
-  background-color:#bccbde; 
- height: 20%;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* height: 100%; */
+}
+.section8 {
+  background-color: #efeef0;
+
 }
 
-
-
-@media (max-width: 740px) {
-    * {
-      font-size: 70%;
-    }
+/* !important */
+/* @media (max-width: 740px) {
+  * {
+    font-size: 70%;
+  }
 }
 
 @media (max-width: 500px) {
-    * {
-      font-size: 55%;
-    }
+  * {
+    font-size: 55%;
+  }
 }
 
 @media (max-width: 390px) {
-    * {
-      font-size: 45%;
-    }
+  * {
+    font-size: 45%;
+  }
+} */
+
+
+/* Mobile */
+@media (max-width: 740px) {
+  /* !important */
+  .section1 {
+    height: 30px;
+  }
+
+  .section2 {
+    height: 70px;
+  }
+
+  .section3 {
+    height: 100%;
+  }
+
+  .section4 {
+    height: 150px;
+  }
+
+  .section5 {
+    height: 150px;
+  }
+
+  .section7 {
+    height: 50px;
+  }
 }
 
+/* Laptop */
+@media (min-width: 741px) and (max-width: 1000px) {
+  /* !important */
+  .section1 {
+    height: 50px;
+  }
+
+  .section2 {
+    height: 100px;
+  }
+
+  .section3 {
+    height: 100%;
+  }
+
+  .section4 {
+    height: 200px;
+  }
+
+  .section5 {
+    height: 200px;
+  }
+
+  .section7 {
+    height: 100px;
+  }
+}
 

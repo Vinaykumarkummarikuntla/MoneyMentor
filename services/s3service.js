@@ -1,5 +1,6 @@
 const AWS = require('aws-sdk')
 
+// TODO Uploading to S3 BUCKET
 exports.uploadToS3 = async (data, filename) => {
   try {
     const BUCKET_NAME = process.env.BUCKET_NAME
@@ -11,7 +12,6 @@ exports.uploadToS3 = async (data, filename) => {
       secretAccessKey: IAM_USER_SECRET,
       Bucket: BUCKET_NAME
     })
-
     const params = {
       Bucket: BUCKET_NAME,
       Key: filename,
@@ -34,4 +34,3 @@ exports.uploadToS3 = async (data, filename) => {
     console.log('error', err)
   }
 }
-

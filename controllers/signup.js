@@ -1,20 +1,20 @@
 const bcrypt = require('bcrypt')
 const signup = require('../models/signupmodel')
-const logger = require('../logger')
+const logger = require('../middleware/logger')
 
+// TODO Signup details
 exports.signupdetails = async (req, res, next) => {
   try {
     const username = req.body.username
     const email = req.body.email
     const password = req.body.password
-
-    console.log('the storing details are ' + username + ' and ' + email)
+    // console.log('the storing details are ' + username + ' and ' + email)
 
     const saltRounds = 10
     const salt = await bcrypt.genSalt(saltRounds)
+    // password hashing
     const hashedPassword = await bcrypt.hash(password, salt)
-
-    console.log('hashedpassword', hashedPassword)
+    // console.log('hashedpassword', hashedPassword)
 
     const data = await signup.create({
       username,
@@ -26,6 +26,4 @@ exports.signupdetails = async (req, res, next) => {
     logger.error('An error occurred:', err)
     // console.error(err);
   }
-
-  //   res.sendFile('./public/login/index.html');
 }

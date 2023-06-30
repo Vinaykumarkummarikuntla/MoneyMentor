@@ -1,4 +1,7 @@
-// sending expense details
+// google.charts.load('current', {'packages':['corechart']});
+// google.charts.setOnLoadCallback(drawChart);
+
+// TODO SENDING EXPENSE TO SERVER
 function saveToServer (event) {
   event.preventDefault()
   const expenseAmount = event.target.expenseAmount.value
@@ -6,11 +9,8 @@ function saveToServer (event) {
   const category = event.target.category.value
   // const image = event.target.image.value;
   console.log(expenseAmount, checkDescription, category)
-
   const token = localStorage.getItem('token')
-
   const obj = { expenseAmount, checkDescription, category }
-
   axios
     .post('http://localhost:4000/expensedetails', obj, {
       headers: { Authorization: token }
@@ -23,49 +23,43 @@ function saveToServer (event) {
     })
 }
 
-// retreiveing the expense details
-window
-  .addEventListener('DOMContentLoaded', () => {
-    const page = 1
-    try {
-      getExpenseDetails(page)
-
-      const premiumToken = localStorage.getItem('token')
-      console.log(
-        'at the time of getting expene details localStorage Premiumtoken getItem',
-        premiumToken
-      )
-      const decodeToken = parseJwt(premiumToken)
-      console.log('decoded Token', decodeToken)
-      console.log(decodeToken.isPremiumUser)
-
-      if (decodeToken.isPremiumUser) {
-        isPremiumUserMessage()
-      }
-    } catch (err) {
-      console.log(err)
+// TODO RETREIEVING EXPENSE DETAILS
+window.addEventListener('DOMContentLoaded', () => {
+  const page = 1
+  try {
+    getExpenseDetails(page)
+    const premiumToken = localStorage.getItem('token')
+    console.log(
+      'at the time of getting expene details localStorage Premiumtoken getItem',
+      premiumToken
+    )
+    const decodeToken = parseJwt(premiumToken)
+    console.log('decoded Token', decodeToken)
+    console.log(decodeToken.isPremiumUser)
+    if (decodeToken.isPremiumUser) {
+      isPremiumUserMessage()
     }
-  })
+  } catch (err) {
+    console.log(err)
+  }
+})
 
-// expense add to UI
+// TODO EXPENSE ADD TO UI
 function showExpenseDetails (expense) {
   console.log('showExpenseDetails function called')
   console.log('Expense amount:', expense.expenseamount)
   const parentElement = document.getElementsByClassName('tbody')[0]
-
   childHTML = `<tr id =  ${expense.id}> <td>${expense.expenseamount} </td>
     <td>${expense.category}</td> 
     <td> ${expense.description}</td>
     <td> <button onclick = "deleteExpense('${expense.id}')" class = "btn btn-danger">Delete</button></td>
     </tr>`
   parentElement.innerHTML = parentElement.innerHTML + childHTML
-
   // parentElement.insertAdjacentHTML('beforeend', childHTML)
-
-  showYearReportUI()
+  // showYearReportUI()
 }
 
-// Pagination
+// TODO PAGINATION
 function showPagination ({
   currentPage,
   hasNextPage,
@@ -75,7 +69,6 @@ function showPagination ({
   lastPage
 }) {
   const pagination = document.querySelector('.pagination-container')
-
   pagination.innerHTML = ''
   // previousPage
   if (hasPreviousPage) {
@@ -99,16 +92,19 @@ function showPagination ({
   }
 }
 
+// TODO GETTING EXPNESE DETAILS
 function getExpenseDetails (page) {
   const parentElement = document.getElementsByClassName('tbody')[0]
   parentElement.innerHTML = ''
-
   const pageSize = localStorage.getItem('expensePageSize')
   const token = localStorage.getItem('token')
   axios
-    .get(`http://localhost:4000/expensedetails?page=${page}&pageSize=${pageSize}`, {
-      headers: { Authorization: token }
-    })
+    .get(
+      `http://localhost:4000/expensedetails?page=${page}&pageSize=${pageSize}`,
+      {
+        headers: { Authorization: token }
+      }
+    )
     .then((response) => {
       console.log(response)
       const result = response.data.expensedetails
@@ -118,7 +114,6 @@ function getExpenseDetails (page) {
         'getexpensedetais callled while paginationREsponse',
         paginationResponse
       )
-
       for (let i = 0; i < result.length; i++) {
         showExpenseDetails(result[i])
       }
@@ -129,7 +124,7 @@ function getExpenseDetails (page) {
     })
 }
 
-// delete expense in backend
+// TODO DELETE EXPENSE IN BACKEND
 function deleteExpense (expenseId) {
   const token = localStorage.getItem('token')
   console.log(expenseId)
@@ -154,36 +149,32 @@ function deleteExpense (expenseId) {
     })
 }
 
-// showing premium user message
+// TODO SHOWING PREMIUM USER MESSAGE
 function isPremiumUserMessage () {
   const buypremium = document.getElementById('rzp-button1')
-
   buypremium.style.display = 'none'
   document.getElementById('message').innerHTML =
     '<h4>You are a Premium User. Access All Features Now!</h4>'
-
   document.getElementById('leaderboard').innerHTML =
-  '<div style="display: flex; justify-content: center; align-items: center; height: 10vh;">' +
-    '<button id="showLeaderboardButton" onclick = "showLeaderBoard()" class ="btn btn-secondary" style="background-color: #4caf50; color: #fff;width:15% " > Show LeaderBoard </button>'
+    '<div style="display: flex; justify-content: center; align-items: center; height: 10vh;">' +
+    '<button id="showLeaderboardButton" onclick = "showLeaderBoard()" class ="btn btn-secondary" style="background-color: #4caf50; color: #02010a;width:10% " > LeaderBoard </button> <br>' +
+    '<button id="reportButton" onclick = "showYearReportUI()" class ="btn btn-secondary" style="background-color: #4caf50; color: #02010a;width:10% " > Report </button>' +
+    '<button id="chartButton" onclick = "drawChart()" class ="btn btn-secondary" style="background-color: #4caf50; color: #02010a;width:10% " > chart </button>'
 }
 
-// get show LeaderBoard
+// TODO GET SHOW LEADERBOARD
 let Count = 1
 async function showLeaderBoard () {
   const token = localStorage.getItem('token')
-
   // document.getElementById("show-leaderboard-btn").style.display = "none";
   document.getElementById('leaderboard-main').style.display = 'block'
-
   const leaderboardresponse = await axios
     .get('http://localhost:4000/premium/showleaderboard', {
       headers: { Authorization: token }
     })
-
     .then((response) => {
       console.log('leaderboardresponse', response.data.leaderboardresponse)
       const leaderboardresponse = response.data.leaderboardresponse
-
       for (let i = 0; i < leaderboardresponse.length; i++) {
         showLeaderBoardUI(leaderboardresponse[i], Count)
         Count++
@@ -194,19 +185,20 @@ async function showLeaderBoard () {
     })
 }
 
-// leaderboard  add to UI
+// TODO LEADERBOARD ADD TO UI
 function showLeaderBoardUI (leaderboardresponse, Count) {
   const parentElement = document.getElementById('dynamic-leaderboard')
+  
 
-  childHTML = `<tr>
-    <td> ${Count}</td>
+  childHTML = ` <tr class ="leaderboardrow"> 
+    <td > ${Count}</td>
     <td>${leaderboardresponse.username} </td>
     <td>${leaderboardresponse.totalAmount}</td> 
     </tr>`
   parentElement.innerHTML = parentElement.innerHTML + childHTML
 }
 
-// decoding token
+// TODO DECODING TOKEN
 const parseJwt = (token) => {
   try {
     return JSON.parse(atob(token.split('.')[1]))
@@ -215,12 +207,11 @@ const parseJwt = (token) => {
   }
 }
 
-// Razorpay
+// TODO RAZORPAY
 document.getElementById('rzp-button1').onclick = async function (e) {
   alert('welcome to razorpay')
   e.preventDefault()
   const token = localStorage.getItem('token')
-
   const response = await axios.get('http://localhost:4000/buypremiumship', {
     headers: { Authorization: token }
   })
@@ -264,11 +255,10 @@ document.getElementById('rzp-button1').onclick = async function (e) {
   })
 }
 
-// showing year report UI
+// TODO SHOWING REPORT TO UI
 function showYearReportUI () {
   document.getElementById('report-main').style.display = 'block'
   const parentElement = document.getElementById('dynamic-yearlyreport')
-
   childHTML = `<tr>
     <td> 2023-06-17 </td>
     <td>Groceries</td>
@@ -279,11 +269,10 @@ function showYearReportUI () {
   parentElement.innerHTML = parentElement.innerHTML + childHTML
 }
 
-// download report
+// TODO DOWNLOAD REPORT
 function downloadfile (event) {
   event.preventDefault()
   const token = localStorage.getItem('token')
-
   axios
     .get('http://localhost:4000/downloadreport', {
       headers: { Authorization: token }
@@ -314,12 +303,71 @@ function downloadfile (event) {
     })
 }
 
-// pagi Size Preference
-
+//  TODO PAGI SIZE PREFERENCES
 function updatePageSize () {
   const pageSizeSelect = document.getElementById('pageSize').value
   console.log(pageSizeSelect)
   localStorage.setItem('expensePageSize', pageSizeSelect)
   const defaultPage = 1
   getExpenseDetails(defaultPage)
+}
+
+// TODO CHART
+// async function chart () {
+//   const token = localStorage.getItem('token')
+//   const response = await axios
+//     .get('http://localhost:4000/chart', {
+//       headers: { Authorization: token }
+//     })
+//     .then((response) => {
+//       // console.log('chartresponse', response)
+//       const data = response.data;
+
+//     for (const item of data) {
+//       console.log('Category:', item.category);
+//       console.log('Total Amount:', item.total_amount);
+//     }
+//     })
+
+//     .catch((error) => {
+//       console.log('error', error)
+//     })
+// }
+
+async function drawChart () {
+  const token = localStorage.getItem('token')
+  try {
+    const response = await axios.get('http://localhost:4000/chart', {
+      headers: { Authorization: token }
+    })
+
+    const data = response.data
+
+    const chartData = [['Category', 'Total Amount']]
+    for (const item of data) {
+      chartData.push([item.category, item.total_amount])
+    }
+
+    const chartDataTable = google.visualization.arrayToDataTable(chartData)
+
+    const options = {
+      title: 'Expense Categories',
+      is3D: true,
+      fontSize: 15,
+      chartArea: {
+        width: '70%',
+        height: '90%'
+      }
+    }
+
+    const chart = new google.visualization.PieChart(document.getElementById('myChart'))
+    chart.draw(chartDataTable, options)
+    document.getElementById('myChart').style.display = 'block'
+    document.getElementById('expensesbycategory').style.display = 'block'
+  } catch (error) {
+    console.log('error', error)
+  }
+
+  google.charts.load('current', { packages: ['corechart'] })
+  google.charts.setOnLoadCallback(drawChart)
 }

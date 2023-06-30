@@ -1,10 +1,10 @@
 require('dotenv').config()
-const logger = require('../logger')
+const logger = require('../middleware/logger')
 const signup = require('../models/signupmodel')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
-// generate a token
+// TODO Generate a token for decrypting password
 // secret key generated from ours linux-terminal
 function generateAccessToken (id, mail, isPremiumUser) {
   return jwt.sign(
@@ -13,7 +13,7 @@ function generateAccessToken (id, mail, isPremiumUser) {
   )
 }
 
-// login details validating
+// TODO Login details validating
 exports.logindetails = async (req, res, next) => {
   try {
     const email = req.body.email
@@ -27,13 +27,11 @@ exports.logindetails = async (req, res, next) => {
     if (user) {
       console.log('Stored hashed password:', user.password)
       console.log('Entered password:', password)
+      // comparing password current and stored password
       const isMatched = await bcrypt.compare(password, user.password)
-
       console.log('Password comparison result:', isMatched)
 
       if (isMatched) {
-        // res.redirect("/expense.html");
-
         // sending response back with token if user is authenticated
         res.status(200).json({
           msg: 'User logineed successfully',

@@ -1,16 +1,15 @@
 require('dotenv').config()
-const logger = require('../logger')
+const logger = require('../middleware/logger')
 const SibApiV3Sdk = require('sib-api-v3-sdk')
 
+// TODO Forgotpassoword request
 exports.forgotpassword = async (req, res) => {
   const mail = req.body.email
   console.log('requested forgot password mail', mail)
 
   const defaultClient = SibApiV3Sdk.ApiClient.instance
-
   const apiKey = defaultClient.authentications['api-key']
   apiKey.apiKey = process.env.FORGOT_API_KEY
-
   const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi()
   const sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail()
 
@@ -30,7 +29,6 @@ exports.forgotpassword = async (req, res) => {
   <p>Best regards,</p>
   <p>Your MoneyMentor Team</p>
 `
-
   // Send the email
   apiInstance
     .sendTransacEmail(sendSmtpEmail)

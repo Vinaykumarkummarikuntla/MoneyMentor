@@ -6,10 +6,12 @@
   user-select: none;
 }
 .bg-img{
-  background: url('signup.jpg');
+  /* background-color: #3e61a8 !important; */
+  /* background: url('../assets/images/loginbackground.jpg'); */
+  background-image: linear-gradient(#6bd1d1, #5ecbda, #5ac5e2, #5fbde8, #6db5ea, #6cb8ef, #6bbcf3, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1)!important;
   height: 100vh;
-  background-size: cover;
-  background-position: center;
+  /* background-size: cover;
+  background-position: center; */
 }
 .bg-img:after{
   position: absolute;

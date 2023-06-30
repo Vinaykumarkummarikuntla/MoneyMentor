@@ -2,11 +2,11 @@
 const Expense = require('../models/expensemodel')
 const Sequelize = require('sequelize')
 const User = require('../models/signupmodel')
-const logger = require('../logger')
+const logger = require('../middleware/logger')
 const sequelize = require('../util/database')
 // const client = require('../util/redis')
 
-// storing expense details
+// TODO Storing expense details
 exports.expense = async (req, res, next) => {
   const t = await sequelize.transaction()
   try {
@@ -53,26 +53,22 @@ exports.expense = async (req, res, next) => {
 }
 
 const defultItemsPerPage = 5
-// get expense details
+// TODO Get expense details by page limit
 exports.getexpense = async (req, res, next) => {
   try {
     const pageSize = parseInt(req.query.pageSize) || defultItemsPerPage
-
     const page = parseInt(req.query.page) || 1
     console.log('the page number', page)
-
     const offsetsize = (page - 1) * pageSize
-
     console.log('req.user id -------->', req.user.id)
+
     const totalItems = await Expense.count({ where: { signupId: req.user.id } })
 
     const expense = await Expense.findAll({
       where: { signupId: req.user.id },
       offset: offsetsize,
       limit: pageSize
-    }
-    )
-
+    })
     // const expense = await Expense.findAll();
     res.status(200).json({
       expensedetails: expense,
@@ -92,7 +88,7 @@ exports.getexpense = async (req, res, next) => {
   }
 }
 
-// delete expense details
+// TODO Delete expense details
 exports.deleteexpense = async (req, res, next) => {
   const t = await sequelize.transaction()
   try {
@@ -113,7 +109,6 @@ exports.deleteexpense = async (req, res, next) => {
         await User.update({ totalAmount: currentTotalAmount }, { where: { id: req.user.id } }, { transaction: t })
         // res.status(200).json({ expense })
       }
-
       await t.commit()
     } else {
       res.status(404).json({ msg: 'Expense not found' })

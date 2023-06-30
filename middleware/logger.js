@@ -2,10 +2,10 @@ const winston = require('winston')
 
 // Configure the logger
 const logger = winston.createLogger({
-  level: 'info', // Set the log level
-  format: winston.format.simple(), // Set the log format
+  level: 'info',
+  format: winston.format.simple(),
   transports: [
-    new winston.transports.Console(), // Log to console
+    new winston.transports.Console(),
     new winston.transports.File({ filename: 'error.log', level: 'error' }) // Log to a file
   ]
 })

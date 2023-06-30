@@ -1,35 +1,31 @@
 require('dotenv').config()
-const logger = require('../logger')
+const logger = require('../middleware/logger')
 const Razorpay = require('razorpay')
 const Order = require('../models/ordermodel')
-// const userController = require("../controllers/login");
 const jwt = require('jsonwebtoken')
 
-// generate a token
+// TODO Generate a token
 // secret key generated from ours linux-terminal
 function generateAccessToken (id, mail, isPremiumUser) {
   return jwt.sign(
     { userId: id, mail, isPremiumUser },
     process.env.GENERATEACCESSTOKEN
-    // 'OM43lvuJhjSc74Wk9KGdKq33QQu7uojMhAyprCt1Mo5JKqjFJ2IdrQDgEm8omL2vN4hDglXFwNroOezKVBK+gg=='
   )
 }
 
-// purcahse premium
+// TODO Purchase premium
 exports.purchasePremium = async (req, res) => {
   try {
-      const rzp = new Razorpay({
+    const rzp = new Razorpay({
       key_id: process.env.RAZORPAY_KEY_ID,
       key_secret: process.env.RAZORPAY_SECRET_KEY
     })
 
-    const amount = 500
-
+    const amount = 5000
     rzp.orders.create({ amount, currency: 'INR' }, (err, order) => {
       if (err) {
         throw new Error(JSON.stringify(err))
       }
-
       req.user
         .createOrder({
           orderid: order.id,
@@ -49,7 +45,7 @@ exports.purchasePremium = async (req, res) => {
   }
 }
 
-// update transaction details
+// TODO Update transaction details
 exports.updatetransactionstatus = async (req, res, next) => {
   try {
     const { payment_id, order_id } = req.body
@@ -62,13 +58,10 @@ exports.updatetransactionstatus = async (req, res, next) => {
     console.log('backenduser', req.user.id)
     // const promise2 = order.update({ ispremiumuser: true });
     const promise2 = req.user.update({ ispremiumuser: true })
-    // redisClient.set('isPremiumUser:' + req.user.id, true);
-
     Promise.all([promise1, promise2])
       .then(() => {
         return res
-          .status(202)
-          .json({
+          .status(202).json({
             success: true,
             message: 'Transaction Successful',
             token: generateAccessToken(req.user.id, undefined, true)

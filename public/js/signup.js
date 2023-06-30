@@ -17,5 +17,5 @@ function saveToServer (event) {
     })
 }
 function redirectToLogin () {
-  window.location.href = '/index.html'
+  window.location.href = '/pages/index.html';
 }

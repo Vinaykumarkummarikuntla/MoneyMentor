@@ -6,6 +6,7 @@ const cors = require('cors')
 // const helmet = require('helmet')
 const morgan = require('morgan')
 // const bcrypt = require('bcrypt')
+// const schedule = require('node-schedule')
 
 require('dotenv').config()
 
@@ -19,6 +20,10 @@ const premiumFeatureRouter = require('./routes/premiumFeature')
 const forgotPasswordRouter = require('./routes/forgotPassword')
 const downloadreportRouter = require('./routes/downloadreport')
 const loginandsignupRouter = require('./routes/signupandlogin')
+const chartRouter = require('./routes/chart')
+
+// const notificationController = require('./controllers/notification')
+
 
 // models and database
 const sequelize = require('./util/database')
@@ -49,17 +54,44 @@ app.use(premiumFeatureRouter)
 app.use(forgotPasswordRouter)
 app.use(downloadreportRouter)
 app.use(loginandsignupRouter)
+app.use(chartRouter)
 
-app.get('/public/expense.html', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'expense.html'))
+
+
+// const job = schedule.scheduleJob('*/5 * * * *', async () => {
+//   try {
+//     const currentAmount = 1200; 
+//     const recipientNumber = ; 
+
+  
+//     await notificationController.checkAmountAndSendNotification(currentAmount, recipientNumber);
+
+//     console.log('Notification check completed successfully');
+//   } catch (error) {
+//     console.error('Error occurred during notification check:', error);
+//   }
+//   finally {
+    
+//     job.cancel();
+//   }
+// });
+
+
+app.get('/', (req, res) => {
+  // Render the index.html file
+  res.sendFile(path.join(__dirname, 'public', 'pages', 'index.html'));
+});
+
+app.get('/expense.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'pages', 'expense.html'));
 })
 
-app.get('/public/singup.html', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'singup.html'))
+app.get('/singup.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'pages', 'singup.html'))
 })
-app.get('/public/expense.js', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'expense.js'))
-})
+
+//   res.sendFile(path.join(__dirname, 'public', 'expense.js'))
+// })
 
 //  models relationships
 signup.hasMany(expense)
