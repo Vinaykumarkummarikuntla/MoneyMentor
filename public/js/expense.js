@@ -29,12 +29,9 @@ window.addEventListener('DOMContentLoaded', () => {
   try {
     getExpenseDetails(page)
     const premiumToken = localStorage.getItem('token')
-    console.log(
-      'at the time of getting expene details localStorage Premiumtoken getItem',
-      premiumToken
-    )
+    // console.log('at the time of getting expene details localStorage Premiumtoken getItem',premiumToken)
     const decodeToken = parseJwt(premiumToken)
-    console.log('decoded Token', decodeToken)
+    // console.log('decoded Token', decodeToken)
     console.log(decodeToken.isPremiumUser)
     if (decodeToken.isPremiumUser) {
       isPremiumUserMessage()
@@ -109,11 +106,8 @@ function getExpenseDetails (page) {
       console.log(response)
       const result = response.data.expensedetails
       const paginationResponse = response.data.pageData
-      console.log('getexpensedetais callled', result)
-      console.log(
-        'getexpensedetais callled while paginationREsponse',
-        paginationResponse
-      )
+      // console.log('getexpensedetais callled', result)
+      // console.log('getexpensedetais callled while paginationREsponse',paginationResponse)
       for (let i = 0; i < result.length; i++) {
         showExpenseDetails(result[i])
       }
@@ -127,11 +121,14 @@ function getExpenseDetails (page) {
 // TODO DELETE EXPENSE IN BACKEND
 function deleteExpense (expenseId) {
   const token = localStorage.getItem('token')
-  console.log(expenseId)
+  // console.log(expenseId)
   // { data: { expenseId } } --> delete
   axios
     .delete('http://54.80.26.119:4000/deleteexpense/${expenseId}', {
-      headers: { Authorization: token }
+      headers:
+       {
+         Authorization: token
+       }
     })
     .then((response) => {
       console.log(response)
@@ -208,7 +205,6 @@ const parseJwt = (token) => {
 
 // TODO RAZORPAY
 document.getElementById('rzp-button1').onclick = async function (e) {
-  alert('welcome to razorpay')
   e.preventDefault()
   const token = localStorage.getItem('token')
   const response = await axios
@@ -223,7 +219,7 @@ document.getElementById('rzp-button1').onclick = async function (e) {
     order_id: response.data.order.id,
     handler: async function (response) {
       const transactionResponse = await axios.post(
-        'http://54.80.26.119 :4000/updatetransactionstatus',
+        'http://54.80.26.119:4000/updatetransactionstatus',
         {
           order_id: options.order_id, // Correct the property name to "order_id"
           payment_id: response.razorpay_payment_id
@@ -317,9 +313,9 @@ async function drawChart () {
   const token = localStorage.getItem('token')
   try {
     const response = await axios
-    .get('http://54.80.26.119:4000/chart', {
-      headers: { Authorization: token }
-    })
+      .get('http://54.80.26.119:4000/chart', {
+        headers: { Authorization: token }
+      })
 
     const data = response.data
 
