@@ -7,7 +7,7 @@ function saveToServer (event) {
   // console.log(username, email, password);
   const obj = { username, email, password }
   axios
-    .post('http://54.80.26.119:4000/signupdetails', obj)
+    .post('http://34.235.184.61:4000/signupdetails', obj)
     .then((response) => {
       console.log(response)
       redirectToLogin()
@@ -17,5 +17,5 @@ function saveToServer (event) {
     })
 }
 function redirectToLogin () {
-  window.location.href = '/pages/index.html';
+  window.location.href = '/pages/index.html'
 }
