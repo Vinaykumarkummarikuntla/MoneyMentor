@@ -12,7 +12,7 @@ function saveToServer (event) {
   const token = localStorage.getItem('token')
   const obj = { expenseAmount, checkDescription, category }
   axios
-    .post('http://54.80.26.119 :4000/expensedetails', obj, {
+    .post('http://54.80.26.119:4000/expensedetails', obj, {
       headers: { Authorization: token }
     })
     .then((response) => {
@@ -100,7 +100,7 @@ function getExpenseDetails (page) {
   const token = localStorage.getItem('token')
   axios
     .get(
-      `http://54.80.26.119 :4000/expensedetails?page=${page}&pageSize=${pageSize}`,
+      `http://54.80.26.119:4000/expensedetails?page=${page}&pageSize=${pageSize}`,
       {
         headers: { Authorization: token }
       }
@@ -130,7 +130,7 @@ function deleteExpense (expenseId) {
   console.log(expenseId)
   // { data: { expenseId } } --> delete
   axios
-    .delete('http://54.80.26.119 :4000/deleteexpense/${expenseId}', {
+    .delete('http://54.80.26.119:4000/deleteexpense/${expenseId}', {
       headers: { Authorization: token }
     })
     .then((response) => {
@@ -169,7 +169,7 @@ async function showLeaderBoard () {
   // document.getElementById("show-leaderboard-btn").style.display = "none";
   document.getElementById('leaderboard-main').style.display = 'block'
   const leaderboardresponse = await axios
-    .get('http://54.80.26.119 :4000/premium/showleaderboard', {
+    .get('http://54.80.26.119:4000/premium/showleaderboard', {
       headers: { Authorization: token }
     })
     .then((response) => {
@@ -211,11 +211,13 @@ document.getElementById('rzp-button1').onclick = async function (e) {
   alert('welcome to razorpay')
   e.preventDefault()
   const token = localStorage.getItem('token')
-  const response = await axios.get('http://54.80.26.119 :4000/buypremiumship', {
-    headers: { Authorization: token }
-  })
+  const response = await axios
+    .get('http://54.80.26.119:4000/buypremiumship', {
+      headers: { Authorization: token }
+    })
   console.log('razorpay response', response)
   // payment success
+  // eslint-disable-next-line no-var
   var options = {
     key: response.data.key_id,
     order_id: response.data.order.id,
@@ -234,7 +236,8 @@ document.getElementById('rzp-button1').onclick = async function (e) {
       localStorage.setItem('token', transactionResponse.data.token)
 
       const premiumToken = localStorage.getItem('token')
-      console.log('localStorage Premiumtoken getItem', premiumToken)
+      // eslint-disable-next-line quotes
+      console.log("localStorage Premiumtoken getItem", premiumToken)
 
       const decodeToken = parseJwt(premiumToken)
       console.log(decodeToken)
@@ -273,7 +276,7 @@ function downloadfile (event) {
   event.preventDefault()
   const token = localStorage.getItem('token')
   axios
-    .get('http://54.80.26.119 :4000/downloadreport', {
+    .get('http://54.80.26.119:4000/downloadreport', {
       headers: { Authorization: token }
     })
     .then((response) => {
@@ -291,7 +294,7 @@ function downloadfile (event) {
     })
 
   axios
-    .get('http://54.80.26.119 :4000/getalldownloadedreports', {
+    .get('http://54.80.26.119:4000/getalldownloadedreports', {
       headers: { Authorization: token }
     })
     .then((response) => {
@@ -313,7 +316,8 @@ function updatePageSize () {
 async function drawChart () {
   const token = localStorage.getItem('token')
   try {
-    const response = await axios.get('http://54.80.26.119 :4000/chart', {
+    const response = await axios
+    .get('http://54.80.26.119:4000/chart', {
       headers: { Authorization: token }
     })
 
@@ -336,7 +340,9 @@ async function drawChart () {
       }
     }
 
-    const chart = new google.visualization.PieChart(document.getElementById('myChart'))
+    const chart = new google.visualization.PieChart(
+      document.getElementById('myChart')
+    )
     chart.draw(chartDataTable, options)
     document.getElementById('myChart').style.display = 'block'
     document.getElementById('expensesbycategory').style.display = 'block'
