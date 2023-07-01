@@ -5,8 +5,8 @@ function checkOnServer (event) {
   const password = event.target.password.value
   console.log(email, password)
   const obj = { email, password }
- console.log(obj)
-  axios.post('http://localhost:4000/logindetails', obj)
+  console.log(obj)
+  axios.post('http://54.80.26.119 :4000/logindetails', obj)
     .then(response => {
       console.log(response)
       localStorage.setItem('token', response.data.token)
@@ -49,7 +49,7 @@ function ForgotPasswordForm () {
 
 function handleForgotPasswordFormSubmission (email) {
   // Make an AJAX request to the backend API using Axios
-  axios.post('http://localhost:4000/password/forgotpassword', { email })
+  axios.post('http://54.80.26.119 :4000/password/forgotpassword', { email })
     .then((response) => {
       console.log(response.data)
       // Handle the response from the server

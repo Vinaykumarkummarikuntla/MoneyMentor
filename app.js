@@ -24,7 +24,6 @@ const chartRouter = require('./routes/chart')
 
 // const notificationController = require('./controllers/notification')
 
-
 // models and database
 const sequelize = require('./util/database')
 const signup = require('./models/signupmodel')
@@ -56,14 +55,11 @@ app.use(downloadreportRouter)
 app.use(loginandsignupRouter)
 app.use(chartRouter)
 
-
-
 // const job = schedule.scheduleJob('*/5 * * * *', async () => {
 //   try {
-//     const currentAmount = 1200; 
-//     const recipientNumber = ; 
+//     const currentAmount = 1200;
+//     const recipientNumber = ;
 
-  
 //     await notificationController.checkAmountAndSendNotification(currentAmount, recipientNumber);
 
 //     console.log('Notification check completed successfully');
@@ -71,23 +67,27 @@ app.use(chartRouter)
 //     console.error('Error occurred during notification check:', error);
 //   }
 //   finally {
-    
+
 //     job.cancel();
 //   }
 // });
 
+// app.get('/', (req, res) => {
+//   // Render the index.html file
+//   res.sendFile(path.join(__dirname, 'public', 'pages', 'index.html'));
+// });
 
-app.get('/', (req, res) => {
-  // Render the index.html file
-  res.sendFile(path.join(__dirname, 'public', 'pages', 'index.html'));
-});
+// app.get('/expense.html', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'public', 'pages', 'expense.html'));
+// })
 
-app.get('/expense.html', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'pages', 'expense.html'));
-})
+// app.get('/singup.html', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'public', 'pages', 'singup.html'))
+// })
 
-app.get('/singup.html', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'pages', 'singup.html'))
+app.use((req, res) => {
+  console.log('url', req.url)
+  res.sendFile(path.join(__dirname, `public/pages/${req.url}`))
 })
 
 //   res.sendFile(path.join(__dirname, 'public', 'expense.js'))

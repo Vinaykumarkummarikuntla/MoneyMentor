@@ -8,5 +8,5 @@ const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, pr
   dialect: 'mysql',
   host: process.env.DB_LOCALHOST
 })
-
+console.log('DB CONNECTED')
 module.exports = sequelize
