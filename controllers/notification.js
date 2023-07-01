@@ -2,8 +2,7 @@ require('dotenv').config()
 const id = process.env.TWILLIOSID
 const token = process.env.TWILLIOAUTHTOKEN
 
-// const id = AC1de1a6cd56f7faa9eb3b55167a9d5eda
-// const token = 4c761dbec8e694c3c07c8b4fca2645fd
+
 
 // Importing the Twilio module
 const twilio = require('twilio')
