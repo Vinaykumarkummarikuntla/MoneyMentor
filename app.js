@@ -7,6 +7,7 @@ const cors = require('cors')
 const morgan = require('morgan')
 // const bcrypt = require('bcrypt')
 // const schedule = require('node-schedule')
+const mongoose = require('mongoose');
 
 require('dotenv').config()
 
@@ -94,22 +95,34 @@ app.use((req, res) => {
 // })
 
 //  models relationships
-signup.hasMany(expense)
-expense.belongsTo(signup)
+// signup.hasMany(expense)
+// expense.belongsTo(signup)
 
-signup.hasMany(order)
-order.belongsTo(signup)
+// signup.hasMany(order)
+// order.belongsTo(signup)
 
-signup.hasMany(forgotPassword) // user has many forgot passwords requests
-forgotPassword.belongsTo(signup)
+// signup.hasMany(forgotPassword) // user has many forgot passwords requests
+// forgotPassword.belongsTo(signup)
 
-sequelize
-  // .sync({ force: true })
-  .sync()
-  .then((response) => {
-    console.log(response)
-    app.listen(4000)
-  })
-  .catch((err) => {
-    console.log(err)
-  })
+// sequelize
+//   // .sync({ force: true })
+//   .sync()
+//   .then((response) => {
+//     console.log(response)
+//     app.listen(4000)
+//   })
+//   .catch((err) => {
+//     console.log(err)
+//   })
+
+
+
+
+
+
+
+
+
+app.listen(4000, () => {
+  console.log('App listening on port 4000');
+});

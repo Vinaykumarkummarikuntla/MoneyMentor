@@ -19,11 +19,7 @@ exports.logindetails = async (req, res, next) => {
     const email = req.body.email
     const password = req.body.password
 
-    const user = await signup.findOne({
-      where: {
-        email
-      }
-    })
+    const user = await signup.findOne({ email });
     if (user) {
       console.log('Stored hashed password:', user.password)
       console.log('Entered password:', password)
