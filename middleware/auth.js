@@ -9,10 +9,10 @@ exports.authenticate = async (req, res, next) => {
     const token = await req.header('Authorization')
     const user = jwt.verify(token, secretkey)
     console.log('userid>>>>>>>>>>..', user.userId)
-    User.findByPk(user.userId)
+    User.findById(user.userId)
       .then(user => {
         console.log(JSON.stringify(user))
-        // ! important seting whole user as to access all
+        // ! important setting whole user as to access all
         req.user = user
         next()
       })

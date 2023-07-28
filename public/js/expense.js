@@ -12,7 +12,7 @@ function saveToServer (event) {
   const token = localStorage.getItem('token')
   const obj = { expenseAmount, checkDescription, category }
   axios
-    .post('http://34.235.184.61:4000/expensedetails', obj, {
+    .post('http://localhost:4000/expensedetails', obj, {
       headers: { Authorization: token }
     })
     .then((response) => {
@@ -44,12 +44,12 @@ window.addEventListener('DOMContentLoaded', () => {
 // TODO EXPENSE ADD TO UI
 function showExpenseDetails (expense) {
   console.log('showExpenseDetails function called')
-  console.log('Expense amount:', expense.expenseamount)
+  console.log('Expense amount:', expense)
   const parentElement = document.getElementsByClassName('tbody')[0]
-  childHTML = `<tr id =  ${expense.id}> <td>${expense.expenseamount} </td>
+  childHTML = `<tr id =  ${expense._id}> <td>${expense.expenseamount} </td>
     <td>${expense.category}</td> 
     <td> ${expense.description}</td>
-    <td> <button onclick = "deleteExpense('${expense.id}')" class = "btn btn-danger">Delete</button></td>
+    <td> <button onclick = "deleteExpense('${expense._id}')" class = "btn btn-danger">Delete</button></td>
     </tr>`
   parentElement.innerHTML = parentElement.innerHTML + childHTML
   // parentElement.insertAdjacentHTML('beforeend', childHTML)
@@ -97,7 +97,7 @@ function getExpenseDetails (page) {
   const token = localStorage.getItem('token')
   axios
     .get(
-      `http://34.235.184.61:4000/expensedetails?page=${page}&pageSize=${pageSize}`,
+      `http://localhost:4000/expensedetails?page=${page}&pageSize=${pageSize}`,
       {
         headers: { Authorization: token }
       }
@@ -120,11 +120,12 @@ function getExpenseDetails (page) {
 
 // TODO DELETE EXPENSE IN BACKEND
 function deleteExpense (expenseId) {
+  console.log("passing delete expense id -->",expenseId)
   const token = localStorage.getItem('token')
-  // console.log(expenseId)
+  console.log("the token is", token)
   // { data: { expenseId } } --> delete
   axios
-    .delete('http://34.235.184.61:4000/deleteexpense/${expenseId}', {
+    .delete(`http://localhost:4000/deleteexpense/${expenseId}`, {
       headers:
        {
          Authorization: token
@@ -144,7 +145,8 @@ function deleteExpense (expenseId) {
       document.body.innerHTML +=
         '<h2>Something went wrong item is not found in database</h2>'
     })
-}
+  }
+
 
 // TODO SHOWING PREMIUM USER MESSAGE
 function isPremiumUserMessage () {
@@ -166,7 +168,7 @@ async function showLeaderBoard () {
   // document.getElementById("show-leaderboard-btn").style.display = "none";
   document.getElementById('leaderboard-main').style.display = 'block'
   const leaderboardresponse = await axios
-    .get('http://34.235.184.61:4000/premium/showleaderboard', {
+    .get('http://localhost:4000/premium/showleaderboard', {
       headers: { Authorization: token }
     })
     .then((response) => {
@@ -208,7 +210,7 @@ document.getElementById('rzp-button1').onclick = async function (e) {
   e.preventDefault()
   const token = localStorage.getItem('token')
   const response = await axios
-    .get('http://34.235.184.61:4000/buypremiumship', {
+    .get('http://localhost:4000/buypremiumship', {
       headers: { Authorization: token }
     })
   console.log('razorpay response', response)
@@ -219,7 +221,7 @@ document.getElementById('rzp-button1').onclick = async function (e) {
     order_id: response.data.order.id,
     handler: async function (response) {
       const transactionResponse = await axios.post(
-        'http://34.235.184.61:4000/updatetransactionstatus',
+        'http://localhost:4000/updatetransactionstatus',
         {
           order_id: options.order_id, // Correct the property name to "order_id"
           payment_id: response.razorpay_payment_id
@@ -272,7 +274,7 @@ function downloadfile (event) {
   event.preventDefault()
   const token = localStorage.getItem('token')
   axios
-    .get('http://34.235.184.61:4000/downloadreport', {
+    .get('http://localhost:4000/downloadreport', {
       headers: { Authorization: token }
     })
     .then((response) => {
@@ -290,7 +292,7 @@ function downloadfile (event) {
     })
 
   axios
-    .get('http://34.235.184.61:4000/getalldownloadedreports', {
+    .get('http://localhost:4000/getalldownloadedreports', {
       headers: { Authorization: token }
     })
     .then((response) => {
@@ -313,7 +315,7 @@ async function drawChart () {
   const token = localStorage.getItem('token')
   try {
     const response = await axios
-      .get('http://34.235.184.61:4000/chart', {
+      .get('http://localhost:4000/chart', {
         headers: { Authorization: token }
       })
 

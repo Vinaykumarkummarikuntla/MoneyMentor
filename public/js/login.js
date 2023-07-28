@@ -1,3 +1,16 @@
+function togglePasswordVisibility() {
+  const passwordInput = document.getElementById("password");
+  const showPasswordToggle = document.querySelector(".show");
+
+  if (passwordInput.type === "password") {
+    passwordInput.type = "text";
+    showPasswordToggle.innerHTML = "&#128064;"; // Change to hide icon
+  } else {
+    passwordInput.type = "password";
+    showPasswordToggle.innerHTML = "&#128065;"; // Change to show icon
+  }
+}
+
 
 function checkOnServer (event) {
   event.preventDefault()
@@ -6,7 +19,7 @@ function checkOnServer (event) {
   console.log(email, password)
   const obj = { email, password }
   console.log(obj)
-  axios.post('http://34.235.184.61:4000/logindetails', obj)
+  axios.post('http://localhost:4000/logindetails', obj)
     .then(response => {
       console.log(response)
       localStorage.setItem('token', response.data.token)
@@ -49,7 +62,7 @@ function ForgotPasswordForm () {
 
 function handleForgotPasswordFormSubmission (email) {
   // Make an AJAX request to the backend API using Axios
-  axios.post('http://34.235.184.61:4000/password/forgotpassword', { email })
+  axios.post('http://localhost:4000/password/forgotpassword', { email })
     .then((response) => {
       console.log(response.data)
       // Handle the response from the server
