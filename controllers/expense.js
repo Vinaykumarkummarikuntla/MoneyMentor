@@ -4,32 +4,33 @@ const Sequelize = require('sequelize')
 const User = require('../models/signupmodel')
 const logger = require('../middleware/logger')
 const sequelize = require('../util/database')
+const { encryptData, decryptData } = require('../security/encryanddecrypt');
 // const client = require('../util/redis')
 
 // TODO Storing expense details
 exports.expense = async (req, res, next) => {
   const t = await sequelize.transaction()
   try {
-    const expenseAmount = req.body.expenseAmount
-    const checkDescription = req.body.checkDescription
-    const category = req.body.category
+    const expenseAmount = encryptData(req.body.expenseAmount)
+    const checkDescription = encryptData(req.body.checkDescription)
+    const category = encryptData(req.body.category)
 
     const expense = await Expense.create({
       expenseamount: expenseAmount,
       category,
       description: checkDescription,
-      signupId: req.user.id
+      signupId: encryptData(req.user.id)
     }
     // { transaction: t }
     )
     // try {
-    const user = await User.findByPk(req.user.id)
+    const user = await User.findByPk((req.user.id))
     if (user) {
-      const previousTotalAmount = user.totalAmount
+      const previousTotalAmount = decryptData(user.totalAmount);
       // console.log("previoustotal amount ",previosTotalAmount)
-      const currentTotalAmount = Number(previousTotalAmount) + Number(expenseAmount)
+      const currentTotalAmount = Number(previousTotalAmount) + Number(decryptData(expenseAmount))
       // console.log("currentTotalAmount" ,currentTotalAmount)
-      await User.update({ totalAmount: currentTotalAmount }, { where: { id: req.user.id } }
+      await User.update({ totalAmount: encryptData(currentTotalAmount) }, { where: { id: req.user.id } }
         // { transaction: t }
       )
       // res.status(200).json({ expense })
@@ -97,16 +98,17 @@ exports.deleteexpense = async (req, res, next) => {
     // const expense = await Expense.findAll({ where: { signupId: req.user.id}});
     console.log('delete expense ------>', expense.expenseamount)
     if (expense) {
+      const deletedExpenseAmount = decryptData(expense.expenseamount);
       await expense.destroy({ transaction: t })
       res.status(200).json({ msg: 'Expense deleted successfully' })
 
       const user = await User.findByPk(req.user.id)
       if (user) {
-        const previousTotalAmount = user.totalAmount
+        const previousTotalAmount = decryptData(user.totalAmount)
         // console.log("previoustotal amount ",previosTotalAmount)
         const currentTotalAmount = Number(previousTotalAmount) - Number(expense.expenseamount)
         // console.log("currentTotalAmount" ,currentTotalAmount)
-        await User.update({ totalAmount: currentTotalAmount }, { where: { id: req.user.id } }, { transaction: t })
+        await User.update({ totalAmount:encryptData(currentTotalAmount) }, { where: { id: req.user.id } }, { transaction: t })
         // res.status(200).json({ expense })
       }
       await t.commit()

@@ -4,18 +4,26 @@ const logger = require('../middleware/logger')
 const S3Upload = require('../services/s3service')
 const storereportDB = require('../services/filedownload')
 const Alldownloadedfiles = require('../models/reportdownloadedmodel')
+const { encryptData, decryptData } = require('../security/encryanddecrypt');
 
 // Download expense details and storing S3
 exports.downloadreport = async (req, res) => {
   try {
-    const expense = await Expense.findAll({ where: { signupId: req.user.id } })
-    const stringfyexpenses = JSON.stringify(expense)
+    const expenses = await Expense.findAll({ where: { signupId: req.user.id } })
+    
+    const encryptedExpenses = expenses.map(expense => ({
+      ...expense.toJSON(),
+      expenseamount: decryptDataData(expense.expenseamount),
+      
+    }));
+
+    const stringfyexpenses = JSON.stringify(encryptedExpenses)
     const userId = req.user.id
     const filename = `Expense${userId}/${new Date()}.txt`
 
     const fileURL = await S3Upload.uploadToS3(stringfyexpenses, filename) // storing expense details in S3 BUCKET
 
-    const savingfileinDB = await storereportDB.storeURLInDB(userId, fileURL) // storing URL in DB
+    const savingfileinDB = await storereportDB.storeURLInDB(userId, encryptData(fileURL)) // storing URL in DB
 
     res.status(200).json({ fileURL, message: true })
   } catch (err) {

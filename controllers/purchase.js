@@ -3,6 +3,7 @@ const logger = require('../middleware/logger')
 const Razorpay = require('razorpay')
 const Order = require('../models/ordermodel')
 const jwt = require('jsonwebtoken')
+const { encryptData, decryptData } = require('../security/encryanddecrypt');
 
 // TODO Generate a token
 // secret key generated from ours linux-terminal
@@ -26,10 +27,11 @@ exports.purchasePremium = async (req, res) => {
       if (err) {
         throw new Error(JSON.stringify(err))
       }
+      const encryptedStatus = encryptData('PENDING');
       req.user
         .createOrder({
           orderid: order.id,
-          status: 'PENDING'
+          status: encryptedStatus
         })
         .then(() => {
           return res.status(201).json({ order, key_id: rzp.key_id })
@@ -53,18 +55,19 @@ exports.updatetransactionstatus = async (req, res, next) => {
     // console.log("payment_id id is ",payment_id)
     const promise1 = order.update({
       paymentid: payment_id,
-      status: 'SUCCESSFUL'
+      status: encryptData('SUCCESSFUL')
     })
     console.log('backenduser', req.user.id)
     // const promise2 = order.update({ ispremiumuser: true });
-    const promise2 = req.user.update({ ispremiumuser: true })
+    const promise2 = req.user.update({ ispremiumuser: encryptData(true) })
     Promise.all([promise1, promise2])
       .then(() => {
+        const decryptedIsPremiumUser = decryptData(req.user.ispremiumuser);
         return res
           .status(202).json({
             success: true,
             message: 'Transaction Successful',
-            token: generateAccessToken(req.user.id, undefined, true)
+            token: generateAccessToken(req.user.id, undefined, decryptedIsPremiumUser)
           })
       })
       .catch((error) => {
