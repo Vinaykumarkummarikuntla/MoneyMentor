@@ -3,6 +3,8 @@ const logger = require('../middleware/logger')
 const signup = require('../models/signupmodel')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const { encryptData, decryptData } = require('../security/encryanddecrypt');
+
 
 // TODO Generate a token for decrypting password
 // secret key generated from ours linux-terminal
@@ -16,12 +18,12 @@ function generateAccessToken (id, mail, isPremiumUser) {
 // TODO Login details validating
 exports.logindetails = async (req, res, next) => {
   try {
-    const email = req.body.email
-    const password = req.body.password
+    const email = encryptData(req.body.email)
+    const password = encryptData(req.body.password)
 
     const user = await signup.findOne({
       where: {
-        email
+       email: decryptData(email)
       }
     })
     if (user) {
@@ -35,7 +37,7 @@ exports.logindetails = async (req, res, next) => {
         // sending response back with token if user is authenticated
         res.status(200).json({
           msg: 'User logineed successfully',
-          token: generateAccessToken(user.id, email, null)
+          token: generateAccessToken(user.id,decryptData(email), null)
         })
         console.log('Password is correct')
       } else {

@@ -1,5 +1,6 @@
 const Expense = require('../models/expensemodel')
 const { Sequelize } = require('sequelize')
+const { encryptData, decryptData } = require('../security/encryanddecrypt');
 
 // The details getting by categorywise
 exports.getExpenseByCategory = async (req, res, next) => {
