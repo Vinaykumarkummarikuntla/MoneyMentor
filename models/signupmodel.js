@@ -49,4 +49,5 @@ const signup = sequelize.define('signup', {
   }
 })
 
+
 module.exports = signup
