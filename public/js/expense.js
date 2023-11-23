@@ -12,7 +12,7 @@ function saveToServer (event) {
   const token = localStorage.getItem('token')
   const obj = { expenseAmount, checkDescription, category }
   axios
-    .post('http://34.235.184.61:4000/expensedetails', obj, {
+    .post('http://localhost:4000/expensedetails', obj, {
       headers: { Authorization: token }
     })
     .then((response) => {
@@ -97,7 +97,7 @@ function getExpenseDetails (page) {
   const token = localStorage.getItem('token')
   axios
     .get(
-      `http://34.235.184.61:4000/expensedetails?page=${page}&pageSize=${pageSize}`,
+      `http://localhost:4000/expensedetails?page=${page}&pageSize=${pageSize}`,
       {
         headers: { Authorization: token }
       }

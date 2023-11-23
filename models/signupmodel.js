@@ -16,34 +16,34 @@ const signup = sequelize.define('signup', {
     type: Sequelize.STRING,
     allowNull: false,
     unique: true, // Ensure email is unique
-    validate: {
-      isEmail: {
-        msg: 'Invalid email format'
-      }
-    }
+    // validate: {
+    //   isEmail: {
+    //     msg: 'Invalid email format'
+    //   }
+    // }
   },
   password: {
     type: Sequelize.STRING,
     allowNull: false,
-    validate: {
-      len: {
-        args: [8, 100], // Password must be between 8 and 100 characters long
-        msg: 'Password must be between 8 and 100 characters'
-      },
-      isStrongPassword: {
-        args: {
-          minLength: 8, // Minimum password length
-          minLowercase: 1, // Minimum number of lowercase letters
-          minUppercase: 1, // Minimum number of uppercase letters
-          minNumbers: 1, // Minimum number of digits
-          minSymbols: 1 // Minimum number of symbols
-        },
-        msg: 'Password must be strong'
-      }
-    }
+    // validate: {
+    //   len: {
+    //     args: [8, 100], // Password must be between 8 and 100 characters long
+    //     msg: 'Password must be between 8 and 100 characters'
+    //   },
+    //   isStrongPassword: {
+    //     args: {
+    //       minLength: 8, // Minimum password length
+    //       minLowercase: 1, // Minimum number of lowercase letters
+    //       minUppercase: 1, // Minimum number of uppercase letters
+    //       minNumbers: 1, // Minimum number of digits
+    //       minSymbols: 1 // Minimum number of symbols
+    //     },
+    //     msg: 'Password must be strong'
+    //   }
+    // }
   },
   totalAmount: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.STRING,
     defaultValue: 0
 
   }

@@ -6,7 +6,7 @@ function checkOnServer (event) {
   console.log(email, password)
   const obj = { email, password }
   console.log(obj)
-  axios.post('http://34.235.184.61:4000/logindetails', obj)
+  axios.post('http://localhost:4000/logindetails', obj)
     .then(response => {
       console.log(response)
       localStorage.setItem('token', response.data.token)
